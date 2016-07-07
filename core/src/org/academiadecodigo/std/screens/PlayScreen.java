@@ -22,7 +22,7 @@ import org.academiadecodigo.std.tools.B2WorldCreator;
 /**
  * Created by neves on 07/07/2016.
  */
-public class PlayScreen implements Screen{
+public class PlayScreen implements Screen {
 
     private STDIsABits game;
     private AssetManager manager;
@@ -76,9 +76,10 @@ public class PlayScreen implements Screen{
 
     public void update(float dt) {
 
-        if (hud.isTimeUp()){
+        if (hud.isTimeUp() || isGameOver()) {
             gameOver();
         }
+
         handleInput(dt);
 
         world.step(1 / 60f, 6, 2);
@@ -93,9 +94,18 @@ public class PlayScreen implements Screen{
         renderer.setView(gameCam);
     }
 
+    public boolean isGameOver() {
+        for (Cell cell : creator.getCells()) {
+            if (cell.getPlayer == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private void gameOver() {
 
-        //game.setScreen(new GameOverScreen(game, manager));
+        game.setScreen(new GameOverScreen(game, manager));
         //dispose();
 
     }
@@ -161,7 +171,6 @@ public class PlayScreen implements Screen{
         //b2dr.dispose();
         hud.dispose();
     }
-
 
 
     public World getWorld() {
