@@ -13,9 +13,9 @@ create a game in 24 hours. And we did it (sort of).
 
 This is a multiplayer game. 
 
- # Game theme - infect the maximum number of cells with your virus.
- # Cells infected will infect other cells.
- # Each player is a virus.
- # Player moves with arrow keys. 
+ - Game theme - infect the maximum number of cells with your virus.
+ - Cells infected will infect other cells.
+ - Each player is a virus.
+ - Player moves with arrow keys. 
  
  Please enjoy. 
