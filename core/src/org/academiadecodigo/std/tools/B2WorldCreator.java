@@ -3,15 +3,20 @@ package org.academiadecodigo.std.tools;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 import org.academiadecodigo.std.STDIsABits;
 import org.academiadecodigo.std.screens.PlayScreen;
+import org.academiadecodigo.std.sprites.Cell;
 
 /**
  * Created by neves on 07/07/2016.
  */
 public class B2WorldCreator {
+
+    private static Array<Cell> cells;
 
     public B2WorldCreator(PlayScreen screen) {
 
@@ -36,5 +41,24 @@ public class B2WorldCreator {
             fdef.filter.categoryBits = STDIsABits.EDGE_BIT;
             body.createFixture(fdef);
         }
+
+        cells = new Array<Cell>();
+        for (MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
+
+            if (MathUtils.random(100) < 5) {
+                Rectangle rect = ((RectangleMapObject) object).getRectangle();
+                cells.add(new Cell(screen, rect.getX() / STDIsABits.PPM, rect.getY() / STDIsABits.PPM));
+            }
+
+        }
+
+    }
+
+    public static void removeCell(Cell cell) {
+        cells.removeValue(cell, true);
+    }
+
+    public Array<Cell> getCells() {
+        return cells;
     }
 }

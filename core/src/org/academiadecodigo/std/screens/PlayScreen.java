@@ -83,6 +83,9 @@ public class PlayScreen implements Screen{
 
         world.step(1 / 60f, 6, 2);
 
+        for (Cell cell : creator.getCells()) {
+            cell.update(dt);
+        }
 
 
         hud.update(dt);
@@ -117,7 +120,9 @@ public class PlayScreen implements Screen{
         game.sb.setProjectionMatrix(gameCam.combined);
         game.sb.begin();
 
-
+        for (Cell cell : creator.getCells()) {
+            cell.draw(game.sb);
+        }
 
         game.sb.end();
 
