@@ -18,11 +18,16 @@ public class Cell extends Sprite {
     private World world;
     private Fixture fixture;
     private PlayScreen screen;
+    private Player player;
+
+    public static final Texture NOT_INFECTED = new Texture("ball.png");
+    public static final Texture INFECTED_BY_1 = new Texture("blueball.png");
+    public static final Texture INFECTED_BY_2 = new Texture("redball.png");
 
 
     public Cell(PlayScreen screen, float x, float y) {
 
-        super(new Texture("ball.png"));
+        super(NOT_INFECTED);
         this.screen = screen;
         this.world = screen.getWorld();
 
@@ -36,6 +41,7 @@ public class Cell extends Sprite {
 
     private void defineCell() {
 
+        player = null;
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
         bdef.type = BodyDef.BodyType.DynamicBody;
@@ -59,5 +65,14 @@ public class Cell extends Sprite {
 
         setPosition(b2Body.getPosition().x - getWidth() / 2, b2Body.getPosition().y - getHeight() / 2);
     }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
 
 }
