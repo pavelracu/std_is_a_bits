@@ -1,33 +1,55 @@
 package org.academiadecodigo.std;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import org.academiadecodigo.std.screens.MenuScreen;
+import org.academiadecodigo.std.screens.PlayScreen;
 
-public class STDIsABits extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+public class STDIsABits extends Game {
+
+	public static final int WIDTH = 1600;
+	public static final int HEIGHT = 960;
+	public static final float PPM = 100;
+
+	public static final short EDGE_BIT = 1;
+	public static final short BALL_BIT = 2;
+	public static final short VIRUS1_BIT = 4;
+	public static final short VIRUS2_BIT = 8;
+
+	public SpriteBatch sb;
+
+	private AssetManager manager;
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+
+		sb = new SpriteBatch();
+
+		manager = new AssetManager();
+		manager.load("audio/music.mp3", Music.class);
+		manager.finishLoading();
+
+		setScreen(new MenuScreen(this, manager));
+
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+
+		super.render();
 	}
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
-		img.dispose();
+
+		super.dispose();
+		manager.dispose();
+		sb.dispose();
 	}
 }
