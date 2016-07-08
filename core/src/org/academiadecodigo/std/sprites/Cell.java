@@ -52,8 +52,8 @@ public class Cell extends Sprite {
         fdef.filter.maskBits = STDIsABits.BALL_BIT | STDIsABits.EDGE_BIT | STDIsABits.VIRUS2_BIT | STDIsABits.VIRUS1_BIT;
 
         fdef.shape = shape;
-        fdef.restitution = 0.5f;
-        fdef.friction = 100f;
+        fdef.restitution = 0.9f;
+        fdef.friction = 30f;
 
 
         fixture = b2Body.createFixture(fdef);

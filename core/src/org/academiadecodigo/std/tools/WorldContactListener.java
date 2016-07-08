@@ -23,9 +23,13 @@ public class WorldContactListener implements ContactListener {
                 if (fixA.getFilterData().categoryBits == STDIsABits.BALL_BIT) {
                     ((Cell) fixA.getUserData()).player = (Player) fixB.getUserData();
                     ((Cell) fixA.getUserData()).setTexture(((Player) fixB.getUserData()).getInfectedTexture());
+                    System.out.println("p1");
+
                 } else {
                     ((Cell) fixB.getUserData()).player = (Player) fixA.getUserData();
                     ((Cell) fixB.getUserData()).setTexture(((Player) fixA.getUserData()).getInfectedTexture());
+                    System.out.println("p1");
+
                 }
                 break;
 
@@ -33,9 +37,12 @@ public class WorldContactListener implements ContactListener {
                 if (fixA.getFilterData().categoryBits == STDIsABits.BALL_BIT) {
                     ((Cell) fixA.getUserData()).player = (Player) fixB.getUserData();
                     ((Cell) fixA.getUserData()).setTexture(((Player) fixB.getUserData()).getInfectedTexture());
+                    System.out.println("p2");
                 } else {
                     ((Cell) fixB.getUserData()).player = (Player) fixA.getUserData();
                     ((Cell) fixB.getUserData()).setTexture(((Player) fixA.getUserData()).getInfectedTexture());
+                    System.out.println("p2");
+
                 }
                 break;
 
@@ -43,10 +50,12 @@ public class WorldContactListener implements ContactListener {
                 if (fixA.getFilterData().categoryBits == STDIsABits.BALL_BIT && fixB.getFilterData().categoryBits == STDIsABits.BALL_BIT) {
                     if (((Cell) fixA.getUserData()).player != null) {
                         if (((Cell) fixB.getUserData()).player != null) {
+                            if (((Cell) fixB.getUserData()).player !=((Cell) fixA.getUserData()).player )
                             ((Cell) fixA.getUserData()).setPlayer(null);
                             ((Cell) fixA.getUserData()).setTexture(Cell.NOT_INFECTED);
                             ((Cell) fixB.getUserData()).setPlayer(null);
                             ((Cell) fixB.getUserData()).setTexture(Cell.NOT_INFECTED);
+                            System.out.println("none");
                         } else {
                             ((Cell) fixB.getUserData()).setPlayer(((Cell) fixA.getUserData()).player);
                             ((Cell) fixB.getUserData()).setTexture((((Cell) fixA.getUserData()).player).getInfectedTexture());
