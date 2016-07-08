@@ -53,7 +53,7 @@ public class GameOverScreen implements Screen {
         stage = new Stage(viewport, game.sb);
 
         Table table = new Table();
-        table.bottom();
+        table.top();
         table.setFillParent(true);
         String winner;
         int score;
@@ -67,7 +67,7 @@ public class GameOverScreen implements Screen {
         winnerScore = new Label(winner + " wins, " + score + " cells were infected!", new Label.LabelStyle(new BitmapFont(), Color.LIGHT_GRAY));
         winnerScore.setFontScale(3f);
 
-        table.add(winnerScore).expandX().padBottom(250);
+        table.add(winnerScore).expandX().padTop(650);
 
         stage.addActor(table);
 
