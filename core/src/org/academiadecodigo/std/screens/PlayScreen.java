@@ -179,20 +179,20 @@ public class PlayScreen implements Screen {
         if (hud.isTimeUp() || isGameOver()) {
             gameOver();
         }
-        DatagramPacket sendPacket;
-
-        if (isMultiplayer) {
-
-            synchronized (queue) {
-                command = queue.pollLast();
-                strings = command.split(";");
-                stringDir = strings[0];
-            }
-
-            if (stringDir == null) stringDir = "0";
-
-
-        }
+//        DatagramPacket sendPacket;
+//
+//        if (isMultiplayer) {
+//
+//            synchronized (queue) {
+//                command = queue.pollLast();
+//                strings = command.split(";");
+//                stringDir = strings[0];
+//            }
+//
+//            if (stringDir == null) stringDir = "0";
+//
+//
+//        }
 
 
         handleInput();
@@ -200,21 +200,21 @@ public class PlayScreen implements Screen {
         world.step(1 / 60f, 6, 2);
 
         hud.clearScore();
-        for (Cell cell : creator.getCells()) {
-            cell.update(dt);
-            if (cell.player == player1) {
-                hud.addScore(1, 1);
-            } else if (cell.player == player2) {
-                hud.addScore(1, 2);
-            }
-        }
-
-        if (MathUtils.random(100) < 10) {
-            for (Cell cell : creator.getCells()) {
-                cell.getB2Body().applyForceToCenter(new Vector2(MathUtils.random(-1f, 1f), MathUtils.random(-1f, 1f)), true);
-
-            }
-        }
+//        for (Cell cell : creator.getCells()) {
+//            cell.update(dt);
+//            if (cell.player == player1) {
+//                hud.addScore(1, 1);
+//            } else if (cell.player == player2) {
+//                hud.addScore(1, 2);
+//            }
+//        }
+//
+//        if (MathUtils.random(100) < 10) {
+//            for (Cell cell : creator.getCells()) {
+//                cell.getB2Body().applyForceToCenter(new Vector2(MathUtils.random(-1f, 1f), MathUtils.random(-1f, 1f)), true);
+//
+//            }
+//        }
 
         player1.update(dt);
         player2.update(dt);
@@ -223,25 +223,25 @@ public class PlayScreen implements Screen {
 
         renderer.setView(gameCam);
 
-        if(isMultiplayer) {
-
-            String pos = "";
-
-            for (Cell cell : creator.getCells()) {
-                pos += cell.getB2Body().getPosition().x + "," + cell.getB2Body().getPosition().y + ";";
-            }
-
-            pos += player1.getB2Body().getPosition().x + "," + player1.getB2Body().getPosition().y + ";" +
-                    player2.getB2Body().getPosition().x + "," + player2.getB2Body().getPosition().y + ";";
-
-            sendBuffer = pos.getBytes();
-
-            System.out.println(strings[1]);
-            sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName(strings[1].split("/")[1]), Integer.parseInt(strings[2]));
-
-            socket.send(sendPacket);
-
-        }
+//        if(isMultiplayer) {
+//
+//            String pos = "";
+//
+//            for (Cell cell : creator.getCells()) {
+//                pos += cell.getB2Body().getPosition().x + "," + cell.getB2Body().getPosition().y + ";";
+//            }
+//
+//            pos += player1.getB2Body().getPosition().x + "," + player1.getB2Body().getPosition().y + ";" +
+//                    player2.getB2Body().getPosition().x + "," + player2.getB2Body().getPosition().y + ";";
+//
+//            sendBuffer = pos.getBytes();
+//
+//            System.out.println(strings[1]);
+//            sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName(strings[1].split("/")[1]), Integer.parseInt(strings[2]));
+//
+//            socket.send(sendPacket);
+//
+//        }
 
     }
 

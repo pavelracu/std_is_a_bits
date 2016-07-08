@@ -17,9 +17,10 @@ import org.academiadecodigo.std.sprites.Cell;
 public class B2WorldCreator {
 
     private static Array<Cell> cells;
+    private static PlayScreen screen;
 
     public B2WorldCreator(PlayScreen screen) {
-
+        this.screen = screen;
         World world = screen.getWorld();
         TiledMap map = screen.getMap();
 
@@ -59,7 +60,10 @@ public class B2WorldCreator {
         cells.removeValue(cell, true);
     }
 
-    public Array<Cell> getCells() {
+    public static Array<Cell> getCells() {
         return cells;
     }
+
+    public static PlayScreen getScreen(){return screen;}
+
 }

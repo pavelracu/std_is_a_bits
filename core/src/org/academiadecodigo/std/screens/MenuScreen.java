@@ -76,14 +76,14 @@ public class MenuScreen implements Screen {
 //                mySpecialNelson.start();
 //                myClient.start();
 
-                while (!mySpecialNelson.isConnected()){
-                    System.out.println("Ca ganda wait!");
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        System.out.println("Ca ganda wait , falhou!");
-                    }
-                }
+//                while (!mySpecialNelson.isConnected()){
+//                    System.out.println("Ca ganda wait!");
+//                    try {
+//                        Thread.sleep(200);
+//                    } catch (InterruptedException e) {
+//                        System.out.println("Ca ganda wait , falhou!");
+//                    }
+//                }
             }
             //criar playscreen(game,manager,queue);
             game.setScreen(new PlayScreen(game, manager, queue, isMultiplayer()));
