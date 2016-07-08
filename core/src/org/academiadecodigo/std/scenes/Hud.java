@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import org.academiadecodigo.std.STDIsABits;
 
 /**
- * Created by neves on 07/07/2016.
+ * Created by Helia Marcos, David Neves, Nuno Pereira, Nelson Oliveira, Pavel Racu and Luis Salvado on 07/07/2016.
  */
 public class Hud implements Disposable {
 

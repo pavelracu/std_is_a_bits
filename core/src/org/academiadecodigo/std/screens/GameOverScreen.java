@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import org.academiadecodigo.std.STDIsABits;
 
 /**
- * Created by Helia on 07-07-2016.
+ * Created by Helia Marcos, David Neves, Nuno Pereira, Nelson Oliveira, Pavel Racu and Luis Salvado on 07-07-2016.
  */
 public class GameOverScreen implements Screen {
 
@@ -35,11 +35,11 @@ public class GameOverScreen implements Screen {
 
         cam.position.set(viewport.getWorldWidth() / 2, viewport.getScreenHeight(), 0);
 
-        music = manager.get("", Music.class); //TODO: music path
+       /* music = manager.get("", Music.class); //TODO: music path
         music.setLooping(true);
-        music.play();
+        music.play();*/
 
-        texture = new Texture(""); //TODO: background path
+        texture = new Texture("gameover.png"); //TODO: background path
     }
 
     public void handleInput(float dt) {
