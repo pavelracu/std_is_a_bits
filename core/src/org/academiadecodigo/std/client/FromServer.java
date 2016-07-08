@@ -43,6 +43,10 @@ public class FromServer implements Runnable {
                 serverMessage = new String(recvBuffer, 0, receivePacket.getLength());
                 System.out.println(serverMessage);
                 updateObjects = serverMessage.split(";");
+
+                for (int i = 0; i < updateObjects.length; i++) {
+                    System.out.println(i + ": " + updateObjects[i]);
+                }
                 B2WorldCreator.setCells(updateObjects);
 
 
