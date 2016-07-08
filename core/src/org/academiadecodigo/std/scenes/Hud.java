@@ -67,11 +67,11 @@ public class Hud implements Disposable {
         switch (player) {
             case 1:
                 scorePlayer1 += value;
-                scoreLabel1.setText(String.format("%06d", scorePlayer1));
+                scoreLabel1.setText(String.format("%04d", scorePlayer1));
                 break;
             case 2:
                 scorePlayer2 += value;
-                scoreLabel2.setText(String.format("%06d", scorePlayer2));
+                scoreLabel2.setText(String.format("%04d", scorePlayer2));
                 break;
             default:
                 break;
@@ -82,11 +82,11 @@ public class Hud implements Disposable {
         switch (player) {
             case 1:
                 scorePlayer1 -= value;
-                scoreLabel1.setText(String.format("%06d", scorePlayer1));
+                scoreLabel1.setText(String.format("%04d", scorePlayer1));
                 break;
             case 2:
                 scorePlayer2 -= value;
-                scoreLabel2.setText(String.format("%06d", scorePlayer2));
+                scoreLabel2.setText(String.format("%04d", scorePlayer2));
                 break;
             default:
                 break;

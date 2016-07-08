@@ -31,9 +31,9 @@ public class STDIsABits extends Game {
 
 		sb = new SpriteBatch();
 
-		manager = new AssetManager();
+		/*manager = new AssetManager();
 		manager.load("audio/music.mp3", Music.class);
-		manager.finishLoading();
+		manager.finishLoading();*/
 
 		setScreen(new MenuScreen(this, manager));
 

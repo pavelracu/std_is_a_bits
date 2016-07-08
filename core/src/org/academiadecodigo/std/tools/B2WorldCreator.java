@@ -38,6 +38,7 @@ public class B2WorldCreator {
 
             shape.setAsBox(rect.getWidth() / 2 / STDIsABits.PPM, rect.getHeight() / 2 / STDIsABits.PPM);
             fdef.shape = shape;
+            fdef.restitution = 1f;
             fdef.filter.categoryBits = STDIsABits.EDGE_BIT;
             body.createFixture(fdef);
         }
@@ -45,7 +46,7 @@ public class B2WorldCreator {
         cells = new Array<Cell>();
         for (MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
 
-            if (MathUtils.random(100) < 5) {
+            if (MathUtils.random(100) < 4) {
                 Rectangle rect = ((RectangleMapObject) object).getRectangle();
                 cells.add(new Cell(screen, rect.getX() / STDIsABits.PPM, rect.getY() / STDIsABits.PPM));
             }

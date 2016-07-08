@@ -36,9 +36,9 @@ public class MenuScreen implements Screen {
 
         cam.position.set(viewport.getWorldWidth() / 2, viewport.getScreenHeight() / 2, 0);
 
-        music = manager.get("audio/music.mp3", Music.class);
+        /*music = manager.get("audio/music.mp3", Music.class);
         music.setLooping(true);
-        music.play();
+        music.play();*/
 
         texture = new Texture("start.jpg");
     }
