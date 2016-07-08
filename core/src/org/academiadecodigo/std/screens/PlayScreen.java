@@ -175,7 +175,6 @@ public class PlayScreen implements Screen {
     private void gameOver() {
 
         game.setScreen(new GameOverScreen(game, manager));
-        //dispose();
 
     }
 
