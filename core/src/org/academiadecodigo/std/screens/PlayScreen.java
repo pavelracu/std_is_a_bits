@@ -1,10 +1,12 @@
 package org.academiadecodigo.std.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -18,6 +20,7 @@ import org.academiadecodigo.std.scenes.Hud;
 import org.academiadecodigo.std.sprites.Cell;
 import org.academiadecodigo.std.sprites.Player;
 import org.academiadecodigo.std.tools.B2WorldCreator;
+import org.academiadecodigo.std.tools.WorldContactListener;
 
 /**
  * Created by Helia Marcos, David Neves, Nuno Pereira, Nelson Oliveira, Pavel Racu and Luis Salvado on 07/07/2016.
@@ -67,11 +70,59 @@ public class PlayScreen implements Screen {
         world = new World(new Vector2(0, 0), true);
 
         creator = new B2WorldCreator(this);
+
+        player1 = new Player(this, 40, 460, new Texture("blueball.png"));
+        player1.getFixtureDef().filter.categoryBits = STDIsABits.VIRUS1_BIT;
+        player1.getFixtureDef().filter.maskBits = STDIsABits.BALL_BIT | STDIsABits.VIRUS2_BIT | STDIsABits.EDGE_BIT;
+
+        player2 = new Player(this, STDIsABits.WIDTH - 40, STDIsABits.HEIGHT - 460, new Texture("redball.png"));
+        player2.getFixtureDef().filter.categoryBits = STDIsABits.VIRUS2_BIT;
+        player2.getFixtureDef().filter.maskBits = STDIsABits.BALL_BIT | STDIsABits.VIRUS1_BIT | STDIsABits.EDGE_BIT;
+
+        //world.setContactListener(new WorldContactListener());
     }
 
     public void handleInput(float dt) {
 
+        handlePlayer1Input();
+        handlePlayer2Input();
 
+    }
+
+    private void handlePlayer1Input() {
+        if (Gdx.input.isKeyPressed(Input.Keys.W) && player1.getB2Body().getPosition().y + player1.getHeight() / 2 < STDIsABits.HEIGHT / STDIsABits.PPM) {
+            player1.getB2Body().applyForceToCenter(new Vector2(0, Player.PLAYER_SPEED), true);
+            //player1.getB2Body().setLinearVelocity(0, Player.PLAYER_SPEED);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.S) && player1.getB2Body().getPosition().y - player1.getHeight() / 2 > 0) {
+            player1.getB2Body().applyForceToCenter(new Vector2(0, -Player.PLAYER_SPEED), true);
+            //player1.getB2Body().setLinearVelocity(0, -Player.PLAYER_SPEED);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.A) && player1.getB2Body().getPosition().x - player1.getWidth() / 2 > 0) {
+            player1.getB2Body().applyForceToCenter(new Vector2(-Player.PLAYER_SPEED, 0), true);
+            //player1.getB2Body().setLinearVelocity(-Player.PLAYER_SPEED, 0);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.D) && player1.getB2Body().getPosition().x + player1.getWidth() / 2 < STDIsABits.WIDTH / STDIsABits.PPM) {
+            player1.getB2Body().applyForceToCenter(new Vector2(Player.PLAYER_SPEED, 0), true);
+            //player1.getB2Body().setLinearVelocity(Player.PLAYER_SPEED, 0);
+        }
+    }
+
+    private void handlePlayer2Input() {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) && player2.getB2Body().getPosition().y + player2.getHeight() / 2 < STDIsABits.HEIGHT / STDIsABits.PPM) {
+            player2.getB2Body().applyForceToCenter(new Vector2(0, Player.PLAYER_SPEED), true);
+            //player2.getB2Body().setLinearVelocity(0,Player.PLAYER_SPEED );
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && player2.getB2Body().getPosition().y - player2.getHeight() / 2 > 0) {
+
+            //player2.getB2Body().setLinearVelocity(0, -Player.PLAYER_SPEED);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player2.getB2Body().getPosition().x - player2.getWidth() / 2 > 0) {
+
+            //player2.getB2Body().setLinearVelocity(-Player.PLAYER_SPEED, 0);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player2.getB2Body().getPosition().x + player2.getWidth() / 2 < STDIsABits.WIDTH / STDIsABits.PPM) {
+
+            //player2.getB2Body().setLinearVelocity(Player.PLAYER_SPEED, 0);
+        }
+    }
+
+    private void setToSteady(Player player) {
+        player.getB2Body().setLinearVelocity(0, 0);
     }
 
     public void update(float dt) {
@@ -88,6 +139,8 @@ public class PlayScreen implements Screen {
             cell.update(dt);
         }
 
+        player1.update(dt);
+        player2.update(dt);
 
         hud.update(dt);
 
@@ -129,6 +182,8 @@ public class PlayScreen implements Screen {
 
         game.sb.setProjectionMatrix(gameCam.combined);
         game.sb.begin();
+        player1.draw(game.sb);
+        player2.draw(game.sb);
 
         for (Cell cell : creator.getCells()) {
             cell.draw(game.sb);
