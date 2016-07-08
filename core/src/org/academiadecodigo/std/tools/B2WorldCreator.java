@@ -46,7 +46,7 @@ public class B2WorldCreator {
         cells = new Array<Cell>();
         for (MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
 
-            if (MathUtils.random(100) < 4) {
+            if (MathUtils.random(100) < 2) {
                 Rectangle rect = ((RectangleMapObject) object).getRectangle();
                 cells.add(new Cell(screen, rect.getX() / Tumor.PPM, rect.getY() / Tumor.PPM));
             }
