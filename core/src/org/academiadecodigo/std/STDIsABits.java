@@ -49,7 +49,7 @@ public class STDIsABits extends Game {
 	public void dispose () {
 
 		super.dispose();
-		manager.dispose();
+		//manager.dispose();
 		sb.dispose();
 	}
 }

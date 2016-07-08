@@ -119,4 +119,11 @@ public class Hud implements Disposable {
 
         stage.dispose();
     }
+
+    public void clearScore() {
+        scorePlayer1 = 0;
+        scoreLabel1.setText(String.format("%04d", scorePlayer1));
+        scorePlayer2 = 0;
+        scoreLabel2.setText(String.format("%04d", scorePlayer2));
+    }
 }
