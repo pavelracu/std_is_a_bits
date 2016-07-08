@@ -44,7 +44,6 @@ public class Player extends Sprite {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         b2Body = world.createBody(bodyDef);
 
-
         // define a fisica do objecto
         fixtureDef = new FixtureDef();
         CircleShape shape = new CircleShape();

@@ -2,7 +2,6 @@ package org.academiadecodigo.std.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.physics.box2d.*;
 import org.academiadecodigo.std.STDIsABits;
 import org.academiadecodigo.std.screens.PlayScreen;
