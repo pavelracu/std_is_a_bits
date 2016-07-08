@@ -35,9 +35,6 @@ public class Game {
 
             String message = new String(receiveData, 0, receivePacket.getLength());
 
-            parseJSON(message);
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }

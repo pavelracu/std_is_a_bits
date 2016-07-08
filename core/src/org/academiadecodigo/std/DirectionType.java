@@ -6,7 +6,6 @@ package org.academiadecodigo.std;
  * Fundão 08/07/16 --
  */
 public enum DirectionType {
-<<<<<<< HEAD
     UP("1"),
     DOWN("2"),
     LEFT("3"),
@@ -19,24 +18,14 @@ public enum DirectionType {
         this.num = num;
     }
 
-    public String getNumber() {
+    public String getNum() {
         return num;
-=======
-    UP(1),
-    DOWN(2),
-    LEFT(3),
-    RIGHT(4),
-    NULL(0);
+    }
 
     private int number;
 
-    DirectionType(int number) {
-        this.number = number;
-    }
-
     public int getNumber() {
-        return number;
->>>>>>> server
+        return Integer.parseInt(num);
     }
 
 }

@@ -60,4 +60,8 @@ public class Player implements Runnable {
         }
 
     }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
 }
