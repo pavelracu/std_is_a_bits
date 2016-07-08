@@ -20,7 +20,7 @@ public class Client implements InputProcessor, Runnable {
 
     DirectionType dir = DirectionType.NULL;
     byte[] bytes = new byte[2];
-    String hostName = "127.0.0.1";
+    String hostName = "192.168.1.25";
     int portNumber = 8888;
     DatagramSocket socket = null;
 
@@ -28,6 +28,8 @@ public class Client implements InputProcessor, Runnable {
     public Client(){
         try {
             socket = new DatagramSocket();
+            //Thread fromServer = new Thread(new FromServer());
+            //fromServer.start();
         } catch (SocketException e) {
             System.out.println("Error creating socket" +e.getMessage());
         }

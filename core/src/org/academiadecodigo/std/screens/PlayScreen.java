@@ -1,5 +1,6 @@
 package org.academiadecodigo.std.screens;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -10,12 +11,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import org.academiadecodigo.std.STDIsABits;
+import org.academiadecodigo.std.Tumor;
+import org.academiadecodigo.std.controller.Controller;
 import org.academiadecodigo.std.scenes.Hud;
 import org.academiadecodigo.std.sprites.Cell;
 import org.academiadecodigo.std.sprites.Player;
@@ -31,7 +34,7 @@ import java.util.LinkedList;
  */
 public class PlayScreen implements Screen {
 
-    private STDIsABits game;
+    private Tumor game;
     private AssetManager manager;
 
     //createQueue
@@ -41,6 +44,7 @@ public class PlayScreen implements Screen {
     private Viewport gamePort;
 
     private Hud hud;
+    private Controller controller;
 
     private TmxMapLoader mapLoader;
     private TiledMap map;
@@ -64,7 +68,7 @@ public class PlayScreen implements Screen {
     String command = "";
     String[] strings = new String[3];
 
-    public PlayScreen(STDIsABits game, AssetManager manager, LinkedList queue, boolean isMultiplayer) throws SocketException {
+    public PlayScreen(Tumor game, AssetManager manager, LinkedList queue, boolean isMultiplayer) throws SocketException {
         this.queue = queue;
         this.game = game;
         this.manager = manager;
@@ -78,25 +82,27 @@ public class PlayScreen implements Screen {
     private void init() throws SocketException {
 
         gameCam = new OrthographicCamera();
-        gamePort = new FitViewport(STDIsABits.WIDTH / STDIsABits.PPM, STDIsABits.HEIGHT / STDIsABits.PPM, gameCam);
+        gamePort = new FitViewport(Tumor.WIDTH / Tumor.PPM, Tumor.HEIGHT / Tumor.PPM, gameCam);
         hud = new Hud(game.sb);
 
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("game1.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map, 1 / STDIsABits.PPM);
+        renderer = new OrthogonalTiledMapRenderer(map, 1 / Tumor.PPM);
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
         world = new World(new Vector2(0, 0), true);
 
         creator = new B2WorldCreator(this);
 
-        player1 = new Player(this, 40, 460, new Texture("blueball.png"), STDIsABits.VIRUS1_BIT);
+        player1 = new Player(this, 40, 460, new Texture("virus.png"), Tumor.VIRUS1_BIT);
 
 
-        player2 = new Player(this, STDIsABits.WIDTH - 40, STDIsABits.HEIGHT - 460, new Texture("redball.png"), STDIsABits.VIRUS2_BIT);
+        player2 = new Player(this, Tumor.WIDTH - 40, Tumor.HEIGHT - 460, new Texture("virus02.png"), Tumor.VIRUS2_BIT);
 
 
-        world.setContactListener(new WorldContactListener());
+        world.setContactListener(new WorldContactListener(manager));
+
+        controller = new Controller(game);
 
     }
 
@@ -135,42 +141,32 @@ public class PlayScreen implements Screen {
     }
 
     private void handlePlayer1Input() {
-        System.out.println("XPTO: " + stringDir.equals("1"));
-
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        if (controller.isUpPressed()) {
             player1.getB2Body().applyForceToCenter(new Vector2(0, Player.PLAYER_SPEED), true);
-            //player1.getB2Body().setLinearVelocity(0, Player.PLAYER_SPEED);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        if (controller.isDownPressed()) {
             player1.getB2Body().applyForceToCenter(new Vector2(0, -Player.PLAYER_SPEED), true);
-            //player1.getB2Body().setLinearVelocity(0, -Player.PLAYER_SPEED);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        if (controller.isLeftPressed()) {
             player1.getB2Body().applyForceToCenter(new Vector2(-Player.PLAYER_SPEED, 0), true);
-            //player1.getB2Body().setLinearVelocity(-Player.PLAYER_SPEED, 0);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        if (controller.isRightPressed()) {
             player1.getB2Body().applyForceToCenter(new Vector2(Player.PLAYER_SPEED, 0), true);
-            //player1.getB2Body().setLinearVelocity(Player.PLAYER_SPEED, 0);
         }
     }
 
     private void handlePlayer2Input() {
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             player2.getB2Body().applyForceToCenter(new Vector2(0, Player.PLAYER_SPEED), true);
-            //player2.getB2Body().setLinearVelocity(0,Player.PLAYER_SPEED );
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             player2.getB2Body().applyForceToCenter(new Vector2(0, -Player.PLAYER_SPEED), true);
-            //player2.getB2Body().setLinearVelocity(0, -Player.PLAYER_SPEED);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             player2.getB2Body().applyForceToCenter(new Vector2(-Player.PLAYER_SPEED, 0), true);
-            //player2.getB2Body().setLinearVelocity(-Player.PLAYER_SPEED, 0);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             player2.getB2Body().applyForceToCenter(new Vector2(Player.PLAYER_SPEED, 0), true);
-            //player2.getB2Body().setLinearVelocity(Player.PLAYER_SPEED, 0);
         }
     }
 
@@ -183,6 +179,7 @@ public class PlayScreen implements Screen {
         if (hud.isTimeUp() || isGameOver()) {
             gameOver();
         }
+        DatagramPacket sendPacket;
 
         if (isMultiplayer) {
 
@@ -194,16 +191,29 @@ public class PlayScreen implements Screen {
 
             if (stringDir == null) stringDir = "0";
 
+
         }
 
-        DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName(strings[1]), Integer.parseInt(strings[2]));
 
         handleInput();
 
         world.step(1 / 60f, 6, 2);
 
+        hud.clearScore();
         for (Cell cell : creator.getCells()) {
             cell.update(dt);
+            if (cell.player == player1) {
+                hud.addScore(1, 1);
+            } else if (cell.player == player2) {
+                hud.addScore(1, 2);
+            }
+        }
+
+        if (MathUtils.random(100) < 10) {
+            for (Cell cell : creator.getCells()) {
+                cell.getB2Body().applyForceToCenter(new Vector2(MathUtils.random(-1f, 1f), MathUtils.random(-1f, 1f)), true);
+
+            }
         }
 
         player1.update(dt);
@@ -226,6 +236,9 @@ public class PlayScreen implements Screen {
 
             sendBuffer = pos.getBytes();
 
+            System.out.println(strings[1]);
+            sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName(strings[1].split("/")[1]), Integer.parseInt(strings[2]));
+
             socket.send(sendPacket);
 
         }
@@ -234,7 +247,7 @@ public class PlayScreen implements Screen {
 
     public boolean isGameOver() {
         for (Cell cell : creator.getCells()) {
-            if (cell.player == null) {
+            if (cell.getPlayer() == null) {
                 return false;
             }
         }
@@ -280,6 +293,10 @@ public class PlayScreen implements Screen {
 
         game.sb.end();
 
+        if(Gdx.app.getType() == Application.ApplicationType.Android) {
+            controller.draw();
+        }
+
         game.sb.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
@@ -289,6 +306,7 @@ public class PlayScreen implements Screen {
     public void resize(int width, int height) {
 
         gamePort.update(width, height);
+        controller.resize(width, height);
     }
 
     @Override

@@ -11,20 +11,23 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sun.webkit.ThemeClient;
-import org.academiadecodigo.std.STDIsABits;
 import org.academiadecodigo.std.client.Client;
 import org.academiadecodigo.std.server.MySpecialNelson;
 
 import java.net.SocketException;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import org.academiadecodigo.std.Tumor;
 
 /**
  * Created by Helia Marcos, David Neves, Nuno Pereira, Nelson Oliveira, Pavel Racu and Luis Salvado on 07/07/2016.
  */
 public class MenuScreen implements Screen {
 
-    private STDIsABits game;
+    private Tumor game;
     private OrthographicCamera cam;
     private Viewport viewport;
 
@@ -32,21 +35,22 @@ public class MenuScreen implements Screen {
     private Music music;
 
     private Texture texture;
-    private boolean isMultiplayer = false;
+    private boolean isMultiplayer = true;
+    ExecutorService pool = Executors.newFixedThreadPool(4); //Create a pool where we limit the max number of simultaneous threads.
 
 
-    public MenuScreen(STDIsABits game, AssetManager manager) {
+    public MenuScreen(Tumor game, AssetManager manager) {
         this.game = game;
         this.manager = manager;
 
         cam = new OrthographicCamera();
-        viewport = new FitViewport(STDIsABits.WIDTH, STDIsABits.HEIGHT, cam);
+        viewport = new FitViewport(Tumor.WIDTH, Tumor.HEIGHT, cam);
 
         cam.position.set(viewport.getWorldWidth() / 2, viewport.getScreenHeight() / 2, 0);
 
-        /*music = manager.get("audio/music.mp3", Music.class);
+        music = manager.get("Skies.mp3", Music.class);
         music.setLooping(true);
-        music.play();*/
+        music.play();
 
         texture = new Texture("start.jpg");
     }
@@ -62,10 +66,24 @@ public class MenuScreen implements Screen {
         if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             LinkedList<String> queue = new LinkedList<String>();
             if (isMultiplayer) {
-                Thread mySpecialNelson = new Thread(new MySpecialNelson(queue));
-                Thread myClient = new Thread(new Client());
-                mySpecialNelson.start();
-                myClient.start();
+                MySpecialNelson mySpecialNelson = new MySpecialNelson(queue);
+                Client mySpecialClient = new Client();
+                pool.submit(mySpecialNelson);
+                pool.submit(mySpecialClient);
+
+//                Thread mySpecialNelson = new Thread(new MySpecialNelson(queue));
+//                Thread myClient = new Thread(new Client());
+//                mySpecialNelson.start();
+//                myClient.start();
+
+                while (!mySpecialNelson.isConnected()){
+                    System.out.println("Ca ganda wait!");
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        System.out.println("Ca ganda wait , falhou!");
+                    }
+                }
             }
             //criar playscreen(game,manager,queue);
             game.setScreen(new PlayScreen(game, manager, queue, isMultiplayer()));

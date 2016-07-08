@@ -8,11 +8,17 @@ import org.academiadecodigo.std.tools.B2WorldCreator;
  * Bashtard$ Bootcamp @ Academia de Código
  * Fundão 08/07/16 --
  */
-public class FromServer {
+public class FromServer implements Runnable {
 
     private B2WorldCreator b2WorldCreator;
     private Array<Cell> cells;
 
 
+    @Override
+    public void run() {
+
+
+
+    }
 
 }

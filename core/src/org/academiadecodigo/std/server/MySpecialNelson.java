@@ -6,7 +6,6 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * Created by glitch
@@ -19,6 +18,7 @@ public class MySpecialNelson implements Runnable {
     DatagramSocket socket = null;
     private InetAddress remotePlayerAddress;
     private int remotePlayerPort;
+    private boolean isConnected;
 
     public MySpecialNelson(LinkedList<String> queue) {
         this.queue = queue;
@@ -37,11 +37,13 @@ public class MySpecialNelson implements Runnable {
 
         while (true) {
             DatagramPacket receivePacket = new DatagramPacket(recvBuffer, recvBuffer.length);
-            remotePlayerAddress = receivePacket.getAddress();
-            remotePlayerPort = receivePacket.getPort();
+
 
             try {
                 socket.receive(receivePacket);
+                isConnected = true;
+                remotePlayerAddress = receivePacket.getAddress();
+                remotePlayerPort = receivePacket.getPort();
                 String command = new String(recvBuffer, 0, receivePacket.getLength());
                 command += ";" + remotePlayerAddress.toString() + ";" + remotePlayerPort;
                 synchronized (queue) {
@@ -61,5 +63,9 @@ public class MySpecialNelson implements Runnable {
 
     public int getRemotePlayerPort() {
         return remotePlayerPort;
+    }
+
+    public boolean isConnected() {
+        return isConnected;
     }
 }

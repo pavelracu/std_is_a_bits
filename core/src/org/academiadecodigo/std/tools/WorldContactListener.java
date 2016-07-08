@@ -1,14 +1,22 @@
 package org.academiadecodigo.std.tools;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.*;
-import org.academiadecodigo.std.STDIsABits;
+import org.academiadecodigo.std.Tumor;
 import org.academiadecodigo.std.sprites.Cell;
 import org.academiadecodigo.std.sprites.Player;
 
 /**
- * Created by neves on 07/07/2016.
+ * Created by Helia Marcos, David Neves, Nuno Pereira, Nelson Oliveira, Pavel Racu and Luis Salvado on 07/07/2016.
  */
 public class WorldContactListener implements ContactListener {
+
+    private AssetManager manager;
+
+    public WorldContactListener(AssetManager manager) {
+        this.manager = manager;
+    }
 
     @Override
     public void beginContact(Contact contact) {
@@ -19,8 +27,8 @@ public class WorldContactListener implements ContactListener {
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
 
         switch (cDef) {
-            case STDIsABits.BALL_BIT | STDIsABits.VIRUS1_BIT:
-                if (fixA.getFilterData().categoryBits == STDIsABits.BALL_BIT) {
+            case Tumor.BALL_BIT | Tumor.VIRUS1_BIT:
+                if (fixA.getFilterData().categoryBits == Tumor.BALL_BIT) {
                     ((Cell) fixA.getUserData()).player = (Player) fixB.getUserData();
                     ((Cell) fixA.getUserData()).setTexture(((Player) fixB.getUserData()).getInfectedTexture());
                     System.out.println("p1");
@@ -31,10 +39,11 @@ public class WorldContactListener implements ContactListener {
                     System.out.println("p1");
 
                 }
+                manager.get("infection.wav", Sound.class).play();
                 break;
 
-            case STDIsABits.BALL_BIT | STDIsABits.VIRUS2_BIT:
-                if (fixA.getFilterData().categoryBits == STDIsABits.BALL_BIT) {
+            case Tumor.BALL_BIT | Tumor.VIRUS2_BIT:
+                if (fixA.getFilterData().categoryBits == Tumor.BALL_BIT) {
                     ((Cell) fixA.getUserData()).player = (Player) fixB.getUserData();
                     ((Cell) fixA.getUserData()).setTexture(((Player) fixB.getUserData()).getInfectedTexture());
                     System.out.println("p2");
@@ -44,9 +53,10 @@ public class WorldContactListener implements ContactListener {
                     System.out.println("p2");
 
                 }
+                manager.get("infection.wav", Sound.class).play();
                 break;
 
-            case STDIsABits.BALL_BIT | STDIsABits.BALL_BIT:
+            case Tumor.BALL_BIT | Tumor.BALL_BIT:
                 if (((Cell) fixA.getUserData()).player != null) {
                     if (((Cell) fixB.getUserData()).player != null) {
                         if (((Cell) fixB.getUserData()).player != ((Cell) fixA.getUserData()).player) {
