@@ -1,8 +1,6 @@
+
 package org.academiadecodigo.std.controller;
 
-/**
- * Created by pp on 08-07-2016.
- */
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,9 +14,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import org.academiadecodigo.std.STDIsABits;
 
-/**
- * Created by brentaureli on 10/23/15.
- */
+
 public class Controller {
     Viewport viewport;
     Stage stage;
@@ -27,7 +23,7 @@ public class Controller {
 
     public Controller(STDIsABits game){
         cam = new OrthographicCamera();
-        viewport = new FitViewport(STDIsABits.WIDTH / STDIsABits.PPM, STDIsABits.HEIGHT / STDIsABits.PPM, cam);
+        viewport = new FitViewport(STDIsABits.WIDTH, STDIsABits.HEIGHT - 50, cam);
         stage = new Stage(viewport, game.sb);
 
         stage.addListener(new InputListener(){
@@ -35,16 +31,16 @@ public class Controller {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
                 switch(keycode){
-                    case Input.Keys.UP:
+                    case Input.Keys.W:
                         upPressed = true;
                         break;
-                    case Input.Keys.DOWN:
+                    case Input.Keys.S:
                         downPressed = true;
                         break;
-                    case Input.Keys.LEFT:
+                    case Input.Keys.A:
                         leftPressed = true;
                         break;
-                    case Input.Keys.RIGHT:
+                    case Input.Keys.D:
                         rightPressed = true;
                         break;
                 }
@@ -54,16 +50,16 @@ public class Controller {
             @Override
             public boolean keyUp(InputEvent event, int keycode) {
                 switch(keycode){
-                    case Input.Keys.UP:
+                    case Input.Keys.W:
                         upPressed = false;
                         break;
-                    case Input.Keys.DOWN:
+                    case Input.Keys.S:
                         downPressed = false;
                         break;
-                    case Input.Keys.LEFT:
+                    case Input.Keys.A:
                         leftPressed = false;
                         break;
-                    case Input.Keys.RIGHT:
+                    case Input.Keys.D:
                         rightPressed = false;
                         break;
                 }
@@ -77,7 +73,7 @@ public class Controller {
         table.left().bottom();
 
         Image upImg = new Image(new Texture("flatDark25.png"));
-        upImg.setSize(50, 50);
+        upImg.setSize(100, 100);
         upImg.addListener(new InputListener() {
 
             @Override
@@ -93,7 +89,7 @@ public class Controller {
         });
 
         Image downImg = new Image(new Texture("flatDark26.png"));
-        downImg.setSize(50, 50);
+        downImg.setSize(100, 100);
         downImg.addListener(new InputListener() {
 
             @Override
@@ -109,7 +105,7 @@ public class Controller {
         });
 
         Image rightImg = new Image(new Texture("flatDark24.png"));
-        rightImg.setSize(50, 50);
+        rightImg.setSize(100, 100);
         rightImg.addListener(new InputListener() {
 
             @Override
@@ -125,7 +121,7 @@ public class Controller {
         });
 
         Image leftImg = new Image(new Texture("flatDark23.png"));
-        leftImg.setSize(50, 50);
+        leftImg.setSize(100, 100);
         leftImg.addListener(new InputListener() {
 
             @Override
@@ -143,11 +139,11 @@ public class Controller {
         table.add();
         table.add(upImg).size(upImg.getWidth(), upImg.getHeight());
         table.add();
-        table.row().pad(5, 5, 5, 5);
+        table.row().pad(10, 10, 10, 10);
         table.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
         table.add();
         table.add(rightImg).size(rightImg.getWidth(), rightImg.getHeight());
-        table.row().padBottom(5);
+        table.row().padBottom(10);
         table.add();
         table.add(downImg).size(downImg.getWidth(), downImg.getHeight());
         table.add();

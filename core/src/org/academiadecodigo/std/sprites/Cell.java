@@ -11,7 +11,7 @@ import org.academiadecodigo.std.screens.PlayScreen;
  */
 public class Cell extends Sprite {
 
-    public static final int CELL_RADIUS = 10;
+    public static final int CELL_RADIUS = 20;
 
     private Body b2Body;
     private World world;

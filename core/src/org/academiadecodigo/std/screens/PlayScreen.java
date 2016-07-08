@@ -1,5 +1,6 @@
 package org.academiadecodigo.std.screens;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -83,6 +84,7 @@ public class PlayScreen implements Screen {
         world.setContactListener(new WorldContactListener(manager));
 
         controller = new Controller(game);
+
     }
 
     public void handleInput(float dt) {
@@ -108,16 +110,16 @@ public class PlayScreen implements Screen {
     }
 
     private void handlePlayer2Input() {
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) && player2.getB2Body().getPosition().y + player2.getHeight() / 2 < STDIsABits.HEIGHT / STDIsABits.PPM) {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             player2.getB2Body().applyForceToCenter(new Vector2(0, Player.PLAYER_SPEED), true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && player2.getB2Body().getPosition().y - player2.getHeight() / 2 > 0) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             player2.getB2Body().applyForceToCenter(new Vector2(0, -Player.PLAYER_SPEED), true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player2.getB2Body().getPosition().x - player2.getWidth() / 2 > 0) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             player2.getB2Body().applyForceToCenter(new Vector2(-Player.PLAYER_SPEED, 0), true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player2.getB2Body().getPosition().x + player2.getWidth() / 2 < STDIsABits.WIDTH / STDIsABits.PPM) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             player2.getB2Body().applyForceToCenter(new Vector2(Player.PLAYER_SPEED, 0), true);
         }
     }
@@ -204,6 +206,10 @@ public class PlayScreen implements Screen {
         }
 
         game.sb.end();
+
+        if(Gdx.app.getType() == Application.ApplicationType.Android) {
+            controller.draw();
+        }
 
         game.sb.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
