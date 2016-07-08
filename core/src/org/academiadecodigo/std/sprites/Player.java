@@ -12,7 +12,7 @@ import org.academiadecodigo.std.screens.PlayScreen;
 public class Player extends Sprite {
 
     private final int PLAYER_RADIUS = 40;
-    public static final float PLAYER_SPEED = 1f;
+    public static final float PLAYER_SPEED = 3f;
 
     private Body b2Body;
     private World world;

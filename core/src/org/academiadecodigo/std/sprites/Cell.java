@@ -53,7 +53,7 @@ public class Cell extends Sprite {
         fdef.filter.maskBits = Tumor.BALL_BIT | Tumor.EDGE_BIT | Tumor.VIRUS2_BIT | Tumor.VIRUS1_BIT;
 
         fdef.shape = shape;
-        fdef.restitution = 1f;
+        fdef.restitution = 1.3f;
         fdef.friction = 0.9f;
 
 
