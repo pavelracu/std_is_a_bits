@@ -2,9 +2,8 @@ package org.academiadecodigo.std.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.physics.box2d.*;
-import org.academiadecodigo.std.STDIsABits;
+import org.academiadecodigo.std.Tumor;
 import org.academiadecodigo.std.screens.PlayScreen;
 
 /**
@@ -12,7 +11,7 @@ import org.academiadecodigo.std.screens.PlayScreen;
  */
 public class Cell extends Sprite {
 
-    public static final int CELL_RADIUS = 10;
+    public static final int CELL_RADIUS = 20;
 
     private Body b2Body;
     private World world;
@@ -33,7 +32,7 @@ public class Cell extends Sprite {
 
         setPosition(x, y);
 
-        setSize(CELL_RADIUS * 2 / STDIsABits.PPM, CELL_RADIUS * 2 / STDIsABits.PPM);
+        setSize(CELL_RADIUS * 2 / Tumor.PPM, CELL_RADIUS * 2 / Tumor.PPM);
 
         defineCell();
 
@@ -49,9 +48,9 @@ public class Cell extends Sprite {
 
         fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(CELL_RADIUS / STDIsABits.PPM);
-        fdef.filter.categoryBits = STDIsABits.BALL_BIT;
-        fdef.filter.maskBits = STDIsABits.BALL_BIT | STDIsABits.EDGE_BIT | STDIsABits.VIRUS2_BIT | STDIsABits.VIRUS1_BIT;
+        shape.setRadius(CELL_RADIUS / Tumor.PPM);
+        fdef.filter.categoryBits = Tumor.BALL_BIT;
+        fdef.filter.maskBits = Tumor.BALL_BIT | Tumor.EDGE_BIT | Tumor.VIRUS2_BIT | Tumor.VIRUS1_BIT;
 
         fdef.shape = shape;
         fdef.restitution = 1f;

@@ -16,8 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import org.academiadecodigo.std.Tumor;
 import javafx.scene.control.Tab;
-import org.academiadecodigo.std.STDIsABits;
 import org.academiadecodigo.std.scenes.Hud;
 
 import static com.badlogic.gdx.Gdx.graphics;
@@ -27,7 +27,7 @@ import static com.badlogic.gdx.Gdx.graphics;
  */
 public class GameOverScreen implements Screen {
 
-    private STDIsABits game;
+    private Tumor game;
     private OrthographicCamera cam;
     private Viewport viewport;
 
@@ -44,12 +44,12 @@ public class GameOverScreen implements Screen {
 
     public Stage stage;
 
-    public GameOverScreen(STDIsABits game, AssetManager manager) {
+    public GameOverScreen(Tumor game, AssetManager manager) {
         this.game = game;
         this.manager = manager;
 
         cam = new OrthographicCamera();
-        viewport = new FitViewport(STDIsABits.WIDTH, STDIsABits.HEIGHT, cam);
+        viewport = new FitViewport(Tumor.WIDTH, Tumor.HEIGHT, cam);
         stage = new Stage(viewport, game.sb);
 
         Table table = new Table();
@@ -68,7 +68,6 @@ public class GameOverScreen implements Screen {
         winnerScore.setFontScale(3f);
 
         table.add(winnerScore).expandX().padBottom(250);
-        //table.add(scorePlayer).expandX().padBottom();
 
         stage.addActor(table);
 
@@ -88,9 +87,7 @@ public class GameOverScreen implements Screen {
 
     }
 
-    public void displayScore(){
 
-    }
 
     public void update(float dt) {
         handleInput(dt);

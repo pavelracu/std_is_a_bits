@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import org.academiadecodigo.std.STDIsABits;
+import org.academiadecodigo.std.Tumor;
 
 /**
  * Created by Helia Marcos, David Neves, Nuno Pereira, Nelson Oliveira, Pavel Racu and Luis Salvado on 07/07/2016.
@@ -33,12 +33,12 @@ public class Hud implements Disposable {
 
     public Hud(SpriteBatch sb) {
 
-        worldTimer = 10;
+        worldTimer = 180;
         timeCount = 0;
         scorePlayer1 = 0;
         scorePlayer2 = 0;
 
-        viewport = new FitViewport(STDIsABits.WIDTH, STDIsABits.HEIGHT, new OrthographicCamera());
+        viewport = new FitViewport(Tumor.WIDTH, Tumor.HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, sb);
 
         Table table = new Table();
@@ -47,15 +47,15 @@ public class Hud implements Disposable {
 
         countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.GRAY));
         countdownLabel.setFontScale(2f);
-        scoreLabel1 = new Label(String.format("%06d", scorePlayer1), new Label.LabelStyle(new BitmapFont(), Color.GRAY));
+        scoreLabel1 = new Label(String.format("%06d", scorePlayer1), new Label.LabelStyle(new BitmapFont(), Color.RED));
         scoreLabel1.setFontScale(2f);
-        scoreLabel2 = new Label(String.format("%06d", scorePlayer2), new Label.LabelStyle(new BitmapFont(), Color.GRAY));
+        scoreLabel2 = new Label(String.format("%06d", scorePlayer2), new Label.LabelStyle(new BitmapFont(), Color.GREEN));
         scoreLabel2.setFontScale(2f);
         timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.GRAY));
         timeLabel.setFontScale(2f);
-        player1Label = new Label("PLAYER 1", new Label.LabelStyle(new BitmapFont(), Color.GRAY));
+        player1Label = new Label("PLAYER 1", new Label.LabelStyle(new BitmapFont(), Color.RED));
         player1Label.setFontScale(2f);
-        player2Label = new Label("PLAYER 2", new Label.LabelStyle(new BitmapFont(), Color.GRAY));
+        player2Label = new Label("PLAYER 2", new Label.LabelStyle(new BitmapFont(), Color.GREEN));
         player2Label.setFontScale(2f);
 
         table.add(player1Label).expandX().padTop(10);
