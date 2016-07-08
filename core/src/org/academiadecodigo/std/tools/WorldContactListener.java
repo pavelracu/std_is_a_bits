@@ -22,16 +22,20 @@ public class WorldContactListener implements ContactListener {
             case STDIsABits.BALL_BIT | STDIsABits.VIRUS1_BIT:
                 if (fixA.getFilterData().categoryBits == STDIsABits.BALL_BIT) {
                     ((Cell) fixA.getUserData()).setPlayer((Player) fixB.getUserData());
+                    ((Cell) fixA.getUserData()).setTexture(((Player) fixB.getUserData()).getInfectedTexture());
                 } else {
                     ((Cell) fixB.getUserData()).setPlayer((Player) fixA.getUserData());
+                    ((Cell) fixB.getUserData()).setTexture(((Player) fixA.getUserData()).getInfectedTexture());
                 }
                 break;
 
             case STDIsABits.BALL_BIT | STDIsABits.VIRUS2_BIT:
                 if (fixA.getFilterData().categoryBits == STDIsABits.BALL_BIT) {
                     ((Cell) fixA.getUserData()).setPlayer((Player) fixB.getUserData());
+                    ((Cell) fixA.getUserData()).setTexture(((Player) fixB.getUserData()).getInfectedTexture());
                 } else {
                     ((Cell) fixB.getUserData()).setPlayer((Player) fixA.getUserData());
+                    ((Cell) fixB.getUserData()).setTexture(((Player) fixA.getUserData()).getInfectedTexture());
                 }
                 break;
 
@@ -43,12 +47,12 @@ public class WorldContactListener implements ContactListener {
                         ((Cell) fixB.getUserData()).setPlayer(null);
                         ((Cell) fixB.getUserData()).setTexture(Cell.NOT_INFECTED);
                     } else {
-                        ((Cell) fixB.getUserData()).setPlayer((Player) fixA.getUserData());
-                        ((Cell) fixB.getUserData()).setTexture((Player) fixA.getUserData().getInfectedTexture());
+                        ((Cell) fixB.getUserData()).setPlayer(((Cell) fixA.getUserData()).getPlayer());
+                        ((Cell) fixB.getUserData()).setTexture(((Player) fixA.getUserData()).getInfectedTexture());
                     }
                 } else {
-                    ((Cell) fixA.getUserData()).setPlayer((Player) fixB.getUserData());
-                    ((Cell) fixB.getUserData()).setTexture((Player) fixB.getUserData().getInfectedTexture());
+                    ((Cell) fixA.getUserData()).setPlayer(((Cell) fixB.getUserData()).getPlayer());
+                    ((Cell) fixA.getUserData()).setTexture(((Player) fixB.getUserData()).getInfectedTexture());
                 }
                 break;
         }
