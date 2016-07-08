@@ -18,8 +18,14 @@ public enum DirectionType {
         this.num = num;
     }
 
-    public String getNumber() {
+    public String getNum() {
         return num;
+    }
+
+    private int number;
+
+    public int getNumber() {
+        return Integer.parseInt(num);
     }
 
 }

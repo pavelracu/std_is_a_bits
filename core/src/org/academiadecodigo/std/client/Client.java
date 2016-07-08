@@ -28,8 +28,8 @@ public class Client implements InputProcessor, Runnable {
     public Client(){
         try {
             socket = new DatagramSocket();
-            //Thread fromServer = new Thread(new FromServer());
-            //fromServer.start();
+            Thread fromServer = new Thread(new FromServer());
+            fromServer.start();
         } catch (SocketException e) {
             System.out.println("Error creating socket" +e.getMessage());
         }
@@ -90,7 +90,7 @@ public class Client implements InputProcessor, Runnable {
     }
 
     public void convertToBytes() {
-        bytes = dir.getNumber().getBytes();
+        bytes = dir.getNum().getBytes();
     }
 
 

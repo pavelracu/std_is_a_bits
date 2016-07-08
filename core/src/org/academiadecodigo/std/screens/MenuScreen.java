@@ -67,23 +67,23 @@ public class MenuScreen implements Screen {
             LinkedList<String> queue = new LinkedList<String>();
             if (isMultiplayer) {
                 MySpecialNelson mySpecialNelson = new MySpecialNelson(queue);
-                //Client mySpecialClient = new Client();
+                Client mySpecialClient = new Client();
                 pool.submit(mySpecialNelson);
-                //pool.submit(mySpecialClient);
+                pool.submit(mySpecialClient);
 
 //                Thread mySpecialNelson = new Thread(new MySpecialNelson(queue));
 //                Thread myClient = new Thread(new Client());
 //                mySpecialNelson.start();
 //                myClient.start();
 
-                while (!mySpecialNelson.isConnected()){
-                    System.out.println("Ca ganda wait!");
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        System.out.println("Ca ganda wait , falhou!");
-                    }
-                }
+//                while (!mySpecialNelson.isConnected()){
+//                    System.out.println("Ca ganda wait!");
+//                    try {
+//                        Thread.sleep(200);
+//                    } catch (InterruptedException e) {
+//                        System.out.println("Ca ganda wait , falhou!");
+//                    }
+//                }
             }
             //criar playscreen(game,manager,queue);
             game.setScreen(new PlayScreen(game, manager, queue, isMultiplayer()));

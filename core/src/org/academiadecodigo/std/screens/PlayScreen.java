@@ -121,7 +121,6 @@ public class PlayScreen implements Screen {
 
 
     private void handleNetwork1Input() {
-        System.out.println("XPTO: " + stringDir.equals("1"));
 
         if (stringDir.equals("1")) {
             player2.getB2Body().applyForceToCenter(new Vector2(0, Player.PLAYER_SPEED), true);
