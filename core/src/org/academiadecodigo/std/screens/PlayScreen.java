@@ -22,6 +22,10 @@ import org.academiadecodigo.std.sprites.Player;
 import org.academiadecodigo.std.tools.B2WorldCreator;
 import org.academiadecodigo.std.tools.WorldContactListener;
 
+import java.io.IOException;
+import java.net.*;
+import java.util.LinkedList;
+
 /**
  * Created by Helia Marcos, David Neves, Nuno Pereira, Nelson Oliveira, Pavel Racu and Luis Salvado on 07/07/2016.
  */
@@ -29,6 +33,9 @@ public class PlayScreen implements Screen {
 
     private STDIsABits game;
     private AssetManager manager;
+
+    //createQueue
+    private LinkedList<String> queue;
 
     private OrthographicCamera gameCam;
     private Viewport gamePort;
@@ -47,16 +54,28 @@ public class PlayScreen implements Screen {
     private Player player2;
 
     private Cell cell;
+    private boolean isMultiplayer;
 
-    public PlayScreen(STDIsABits game, AssetManager manager) {
+    DatagramSocket socket = null;
 
+    byte[] sendBuffer = new byte[1024];
+
+    String stringDir = "";
+    String command = "";
+    String[] strings = new String[3];
+
+    public PlayScreen(STDIsABits game, AssetManager manager, LinkedList queue, boolean isMultiplayer) throws SocketException {
+        this.queue = queue;
         this.game = game;
         this.manager = manager;
+        this.isMultiplayer = isMultiplayer;
+
+        socket = new DatagramSocket();
 
         init();
     }
 
-    private void init() {
+    private void init() throws SocketException {
 
         gameCam = new OrthographicCamera();
         gamePort = new FitViewport(STDIsABits.WIDTH / STDIsABits.PPM, STDIsABits.HEIGHT / STDIsABits.PPM, gameCam);
@@ -77,43 +96,79 @@ public class PlayScreen implements Screen {
         player2 = new Player(this, STDIsABits.WIDTH - 40, STDIsABits.HEIGHT - 460, new Texture("redball.png"), STDIsABits.VIRUS2_BIT);
 
 
-         world.setContactListener(new WorldContactListener());
+        world.setContactListener(new WorldContactListener());
+
     }
 
-    public void handleInput(float dt) {
+    public void handleInput() {
 
-        handlePlayer1Input();
-        handlePlayer2Input();
+        if (isMultiplayer) {
+            handlePlayer1Input();
+            handleNetwork1Input();
 
+        } else {
+            handlePlayer1Input();
+            handlePlayer2Input();
+        }
+    }
+
+
+    private void handleNetwork1Input() {
+        System.out.println("XPTO: " + stringDir.equals("1"));
+
+        if (stringDir.equals("1")) {
+            player2.getB2Body().applyForceToCenter(new Vector2(0, Player.PLAYER_SPEED), true);
+            //player2.getB2Body().setLinearVelocity(0,Player.PLAYER_SPEED );
+        }
+        if (stringDir.equals("2")) {
+            player2.getB2Body().applyForceToCenter(new Vector2(0, -Player.PLAYER_SPEED), true);
+            //player2.getB2Body().setLinearVelocity(0, -Player.PLAYER_SPEED);
+        }
+        if (stringDir.equals("3")) {
+            player2.getB2Body().applyForceToCenter(new Vector2(-Player.PLAYER_SPEED, 0), true);
+            //player2.getB2Body().setLinearVelocity(-Player.PLAYER_SPEED, 0);
+        }
+        if (stringDir.equals("4")) {
+            player2.getB2Body().applyForceToCenter(new Vector2(Player.PLAYER_SPEED, 0), true);
+            //player2.getB2Body().setLinearVelocity(Player.PLAYER_SPEED, 0);
+        }
     }
 
     private void handlePlayer1Input() {
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && player1.getB2Body().getPosition().y + player1.getHeight() / 2 < STDIsABits.HEIGHT / STDIsABits.PPM) {
+        System.out.println("XPTO: " + stringDir.equals("1"));
+
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             player1.getB2Body().applyForceToCenter(new Vector2(0, Player.PLAYER_SPEED), true);
             //player1.getB2Body().setLinearVelocity(0, Player.PLAYER_SPEED);
-        } if (Gdx.input.isKeyPressed(Input.Keys.S) && player1.getB2Body().getPosition().y - player1.getHeight() / 2 > 0) {
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             player1.getB2Body().applyForceToCenter(new Vector2(0, -Player.PLAYER_SPEED), true);
             //player1.getB2Body().setLinearVelocity(0, -Player.PLAYER_SPEED);
-        } if (Gdx.input.isKeyPressed(Input.Keys.A) && player1.getB2Body().getPosition().x - player1.getWidth() / 2 > 0) {
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             player1.getB2Body().applyForceToCenter(new Vector2(-Player.PLAYER_SPEED, 0), true);
             //player1.getB2Body().setLinearVelocity(-Player.PLAYER_SPEED, 0);
-        } if (Gdx.input.isKeyPressed(Input.Keys.D) && player1.getB2Body().getPosition().x + player1.getWidth() / 2 < STDIsABits.WIDTH / STDIsABits.PPM) {
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             player1.getB2Body().applyForceToCenter(new Vector2(Player.PLAYER_SPEED, 0), true);
             //player1.getB2Body().setLinearVelocity(Player.PLAYER_SPEED, 0);
         }
     }
 
     private void handlePlayer2Input() {
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) && player2.getB2Body().getPosition().y + player2.getHeight() / 2 < STDIsABits.HEIGHT / STDIsABits.PPM) {
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             player2.getB2Body().applyForceToCenter(new Vector2(0, Player.PLAYER_SPEED), true);
             //player2.getB2Body().setLinearVelocity(0,Player.PLAYER_SPEED );
-        } if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && player2.getB2Body().getPosition().y - player2.getHeight() / 2 > 0) {
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             player2.getB2Body().applyForceToCenter(new Vector2(0, -Player.PLAYER_SPEED), true);
             //player2.getB2Body().setLinearVelocity(0, -Player.PLAYER_SPEED);
-        } if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player2.getB2Body().getPosition().x - player2.getWidth() / 2 > 0) {
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             player2.getB2Body().applyForceToCenter(new Vector2(-Player.PLAYER_SPEED, 0), true);
             //player2.getB2Body().setLinearVelocity(-Player.PLAYER_SPEED, 0);
-        } if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player2.getB2Body().getPosition().x + player2.getWidth() / 2 < STDIsABits.WIDTH / STDIsABits.PPM) {
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             player2.getB2Body().applyForceToCenter(new Vector2(Player.PLAYER_SPEED, 0), true);
             //player2.getB2Body().setLinearVelocity(Player.PLAYER_SPEED, 0);
         }
@@ -123,13 +178,27 @@ public class PlayScreen implements Screen {
         player.getB2Body().setLinearVelocity(0, 0);
     }
 
-    public void update(float dt) {
+    public void update(float dt) throws IOException {
 
         if (hud.isTimeUp() || isGameOver()) {
             gameOver();
         }
 
-        handleInput(dt);
+        if (isMultiplayer) {
+
+            synchronized (queue) {
+                command = queue.pollLast();
+                strings = command.split(";");
+                stringDir = strings[0];
+            }
+
+            if (stringDir == null) stringDir = "0";
+
+        }
+
+        DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName(strings[1]), Integer.parseInt(strings[2]));
+
+        handleInput();
 
         world.step(1 / 60f, 6, 2);
 
@@ -143,6 +212,24 @@ public class PlayScreen implements Screen {
         hud.update(dt);
 
         renderer.setView(gameCam);
+
+        if(isMultiplayer) {
+
+            String pos = "";
+
+            for (Cell cell : creator.getCells()) {
+                pos += cell.getB2Body().getPosition().x + "," + cell.getB2Body().getPosition().y + ";";
+            }
+
+            pos += player1.getB2Body().getPosition().x + "," + player1.getB2Body().getPosition().y + ";" +
+                    player2.getB2Body().getPosition().x + "," + player2.getB2Body().getPosition().y + ";";
+
+            sendBuffer = pos.getBytes();
+
+            socket.send(sendPacket);
+
+        }
+
     }
 
     public boolean isGameOver() {
@@ -169,7 +256,11 @@ public class PlayScreen implements Screen {
     @Override
     public void render(float dt) {
 
-        update(dt);
+        try {
+            update(dt);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

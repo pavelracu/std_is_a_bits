@@ -73,5 +73,8 @@ public class Cell extends Sprite {
         this.player = player;
     }
 
+    public Body getB2Body() {
+        return b2Body;
+    }
 
 }

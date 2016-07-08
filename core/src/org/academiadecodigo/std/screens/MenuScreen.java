@@ -10,7 +10,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.sun.webkit.ThemeClient;
 import org.academiadecodigo.std.STDIsABits;
+import org.academiadecodigo.std.client.Client;
+import org.academiadecodigo.std.server.MySpecialNelson;
+
+import java.net.SocketException;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Created by Helia Marcos, David Neves, Nuno Pereira, Nelson Oliveira, Pavel Racu and Luis Salvado on 07/07/2016.
@@ -25,6 +32,7 @@ public class MenuScreen implements Screen {
     private Music music;
 
     private Texture texture;
+    private boolean isMultiplayer = false;
 
 
     public MenuScreen(STDIsABits game, AssetManager manager) {
@@ -44,16 +52,24 @@ public class MenuScreen implements Screen {
     }
 
 
-    public void update(float dt) {
+    public void update(float dt) throws SocketException {
 
         handleInput(dt);
     }
 
-    public void handleInput(float dt) {
+    public void handleInput(float dt) throws SocketException {
 
         if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            LinkedList<String> queue = new LinkedList<String>();
+            if (isMultiplayer) {
+                Thread mySpecialNelson = new Thread(new MySpecialNelson(queue));
+                Thread myClient = new Thread(new Client());
+                mySpecialNelson.start();
+                myClient.start();
+            }
+            //criar playscreen(game,manager,queue);
+            game.setScreen(new PlayScreen(game, manager, queue, isMultiplayer()));
 
-            game.setScreen(new PlayScreen(game, manager));
             dispose();
         }
     }
@@ -66,15 +82,22 @@ public class MenuScreen implements Screen {
     @Override
     public void render(float dt) {
 
-        update(dt);
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        try {
+            update(dt);
 
-        game.sb.setProjectionMatrix(cam.combined);
-        game.sb.begin();
-        game.sb.draw(texture, 0, cam.position.y - cam.viewportHeight / 2);
+            Gdx.gl.glClearColor(0, 0, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        game.sb.end();
+            game.sb.setProjectionMatrix(cam.combined);
+            game.sb.begin();
+            game.sb.draw(texture, 0, cam.position.y - cam.viewportHeight / 2);
+
+            game.sb.end();
+
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -103,5 +126,13 @@ public class MenuScreen implements Screen {
     @Override
     public void dispose() {
         //texture.dispose();
+    }
+
+    public void setMultiplayer() {
+        isMultiplayer = true;
+    }
+
+    public boolean isMultiplayer() {
+        return isMultiplayer;
     }
 }
