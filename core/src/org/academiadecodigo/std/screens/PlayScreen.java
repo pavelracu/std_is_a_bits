@@ -225,7 +225,7 @@ public class PlayScreen implements Screen {
             String pos = "";
 
             for (Cell cell : creator.getCells()) {
-                pos += cell.getB2Body().getPosition().x + "," + cell.getB2Body().getPosition().y + ";";
+                pos += cell.getB2Body().getPosition().x + "," + cell.getB2Body().getPosition().y + "," + cell.getState() +";";
             }
 
             pos += player1.getB2Body().getPosition().x + "," + player1.getB2Body().getPosition().y + ";" +
@@ -234,7 +234,7 @@ public class PlayScreen implements Screen {
             sendBuffer = pos.getBytes();
 
             System.out.println(strings[1]);
-            sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName(strings[1].split("/")[1]), Integer.parseInt(strings[2]));
+            sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("192.168.1.20"), 9999);
 
             socket.send(sendPacket);
 

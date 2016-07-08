@@ -90,7 +90,7 @@ public class Client implements InputProcessor, Runnable {
     }
 
     public void convertToBytes() {
-        bytes = dir.getNumber().getBytes();
+        bytes = dir.getNum().getBytes();
     }
 
 
