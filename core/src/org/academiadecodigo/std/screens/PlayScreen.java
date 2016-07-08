@@ -148,7 +148,6 @@ public class PlayScreen implements Screen {
             for (Cell cell : creator.getCells()) {
                 cell.getB2Body().applyForceToCenter(new Vector2(MathUtils.random(-1f, 1f), MathUtils.random(-1f, 1f)), true);
 
-                System.out.println("sgd");
             }
         }
 
