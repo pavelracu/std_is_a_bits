@@ -46,8 +46,8 @@ public class Hud implements Disposable {
         table.setFillParent(true);
 
         countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        scoreLabel1 = new Label(String.format("%06d", scorePlayer1), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        scoreLabel2 = new Label(String.format("%06d", scorePlayer2), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        scoreLabel1 = new Label(String.format("%04d", scorePlayer1), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        scoreLabel2 = new Label(String.format("%04d", scorePlayer2), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         player1Label = new Label("PLAYER 1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         player2Label = new Label("PLAYER 2", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -67,11 +67,11 @@ public class Hud implements Disposable {
         switch (player) {
             case 1:
                 scorePlayer1 += value;
-                scoreLabel1.setText(String.format("%06d", scorePlayer1));
+                scoreLabel1.setText(String.format("%04d", scorePlayer1));
                 break;
             case 2:
                 scorePlayer2 += value;
-                scoreLabel2.setText(String.format("%06d", scorePlayer2));
+                scoreLabel2.setText(String.format("%04d", scorePlayer2));
                 break;
             default:
                 break;
@@ -82,11 +82,11 @@ public class Hud implements Disposable {
         switch (player) {
             case 1:
                 scorePlayer1 -= value;
-                scoreLabel1.setText(String.format("%06d", scorePlayer1));
+                scoreLabel1.setText(String.format("%04d", scorePlayer1));
                 break;
             case 2:
                 scorePlayer2 -= value;
-                scoreLabel2.setText(String.format("%06d", scorePlayer2));
+                scoreLabel2.setText(String.format("%04d", scorePlayer2));
                 break;
             default:
                 break;

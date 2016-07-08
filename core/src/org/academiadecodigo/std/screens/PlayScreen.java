@@ -79,7 +79,7 @@ public class PlayScreen implements Screen {
         player2.getFixtureDef().filter.categoryBits = STDIsABits.VIRUS2_BIT;
         player2.getFixtureDef().filter.maskBits = STDIsABits.BALL_BIT | STDIsABits.VIRUS1_BIT | STDIsABits.EDGE_BIT;
 
-        //world.setContactListener(new WorldContactListener());
+        world.setContactListener(new WorldContactListener());
     }
 
     public void handleInput(float dt) {
@@ -93,13 +93,13 @@ public class PlayScreen implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.W) && player1.getB2Body().getPosition().y + player1.getHeight() / 2 < STDIsABits.HEIGHT / STDIsABits.PPM) {
             player1.getB2Body().applyForceToCenter(new Vector2(0, Player.PLAYER_SPEED), true);
             //player1.getB2Body().setLinearVelocity(0, Player.PLAYER_SPEED);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.S) && player1.getB2Body().getPosition().y - player1.getHeight() / 2 > 0) {
+        } if (Gdx.input.isKeyPressed(Input.Keys.S) && player1.getB2Body().getPosition().y - player1.getHeight() / 2 > 0) {
             player1.getB2Body().applyForceToCenter(new Vector2(0, -Player.PLAYER_SPEED), true);
             //player1.getB2Body().setLinearVelocity(0, -Player.PLAYER_SPEED);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.A) && player1.getB2Body().getPosition().x - player1.getWidth() / 2 > 0) {
+        } if (Gdx.input.isKeyPressed(Input.Keys.A) && player1.getB2Body().getPosition().x - player1.getWidth() / 2 > 0) {
             player1.getB2Body().applyForceToCenter(new Vector2(-Player.PLAYER_SPEED, 0), true);
             //player1.getB2Body().setLinearVelocity(-Player.PLAYER_SPEED, 0);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.D) && player1.getB2Body().getPosition().x + player1.getWidth() / 2 < STDIsABits.WIDTH / STDIsABits.PPM) {
+        } if (Gdx.input.isKeyPressed(Input.Keys.D) && player1.getB2Body().getPosition().x + player1.getWidth() / 2 < STDIsABits.WIDTH / STDIsABits.PPM) {
             player1.getB2Body().applyForceToCenter(new Vector2(Player.PLAYER_SPEED, 0), true);
             //player1.getB2Body().setLinearVelocity(Player.PLAYER_SPEED, 0);
         }
@@ -109,14 +109,14 @@ public class PlayScreen implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && player2.getB2Body().getPosition().y + player2.getHeight() / 2 < STDIsABits.HEIGHT / STDIsABits.PPM) {
             player2.getB2Body().applyForceToCenter(new Vector2(0, Player.PLAYER_SPEED), true);
             //player2.getB2Body().setLinearVelocity(0,Player.PLAYER_SPEED );
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && player2.getB2Body().getPosition().y - player2.getHeight() / 2 > 0) {
-
+        } if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && player2.getB2Body().getPosition().y - player2.getHeight() / 2 > 0) {
+            player2.getB2Body().applyForceToCenter(new Vector2(0, -Player.PLAYER_SPEED), true);
             //player2.getB2Body().setLinearVelocity(0, -Player.PLAYER_SPEED);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player2.getB2Body().getPosition().x - player2.getWidth() / 2 > 0) {
-
+        } if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player2.getB2Body().getPosition().x - player2.getWidth() / 2 > 0) {
+            player2.getB2Body().applyForceToCenter(new Vector2(-Player.PLAYER_SPEED, 0), true);
             //player2.getB2Body().setLinearVelocity(-Player.PLAYER_SPEED, 0);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player2.getB2Body().getPosition().x + player2.getWidth() / 2 < STDIsABits.WIDTH / STDIsABits.PPM) {
-
+        } if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player2.getB2Body().getPosition().x + player2.getWidth() / 2 < STDIsABits.WIDTH / STDIsABits.PPM) {
+            player2.getB2Body().applyForceToCenter(new Vector2(Player.PLAYER_SPEED, 0), true);
             //player2.getB2Body().setLinearVelocity(Player.PLAYER_SPEED, 0);
         }
     }
@@ -149,7 +149,7 @@ public class PlayScreen implements Screen {
 
     public boolean isGameOver() {
         for (Cell cell : creator.getCells()) {
-            if (cell.getPlayer == null) {
+            if (cell.player == null) {
                 return false;
             }
         }
