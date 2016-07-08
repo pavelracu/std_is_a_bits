@@ -38,6 +38,7 @@ public class B2WorldCreator {
 
             shape.setAsBox(rect.getWidth() / 2 / STDIsABits.PPM, rect.getHeight() / 2 / STDIsABits.PPM);
             fdef.shape = shape;
+            fdef.restitution = 1f;
             fdef.filter.categoryBits = STDIsABits.EDGE_BIT;
             body.createFixture(fdef);
         }

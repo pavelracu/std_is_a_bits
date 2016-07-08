@@ -71,13 +71,11 @@ public class PlayScreen implements Screen {
 
         creator = new B2WorldCreator(this);
 
-        player1 = new Player(this, 40, 460, new Texture("blueball.png"));
-        player1.getFixtureDef().filter.categoryBits = STDIsABits.VIRUS1_BIT;
-        player1.getFixtureDef().filter.maskBits = STDIsABits.BALL_BIT | STDIsABits.VIRUS2_BIT | STDIsABits.EDGE_BIT;
+        player1 = new Player(this, 40, 460, new Texture("blueball.png"), STDIsABits.VIRUS1_BIT);
 
-        player2 = new Player(this, STDIsABits.WIDTH - 40, STDIsABits.HEIGHT - 460, new Texture("redball.png"));
-        player2.getFixtureDef().filter.categoryBits = STDIsABits.VIRUS2_BIT;
-        player2.getFixtureDef().filter.maskBits = STDIsABits.BALL_BIT | STDIsABits.VIRUS1_BIT | STDIsABits.EDGE_BIT;
+
+        player2 = new Player(this, STDIsABits.WIDTH - 40, STDIsABits.HEIGHT - 460, new Texture("redball.png"), STDIsABits.VIRUS2_BIT);
+
 
          world.setContactListener(new WorldContactListener());
     }
