@@ -179,20 +179,20 @@ public class PlayScreen implements Screen {
         if (hud.isTimeUp() || isGameOver()) {
             gameOver();
         }
-        DatagramPacket sendPacket;
-
-        if (isMultiplayer) {
-
-            synchronized (queue) {
-                command = queue.pollLast();
-                strings = command.split(";");
-                stringDir = strings[0];
-            }
-
-            if (stringDir == null) stringDir = "0";
-
-
-        }
+//        DatagramPacket sendPacket;
+//
+//        if (isMultiplayer) {
+//
+//            synchronized (queue) {
+//                command = queue.pollLast();
+//                strings = command.split(";");
+//                stringDir = strings[0];
+//            }
+//
+//            if (stringDir == null) stringDir = "0";
+//
+//
+//        }
 
 
         handleInput();
@@ -226,25 +226,25 @@ public class PlayScreen implements Screen {
 
         renderer.setView(gameCam);
 
-        if(isMultiplayer) {
-
-            String pos = "";
-
-            for (Cell cell : creator.getCells()) {
-                pos += cell.getB2Body().getPosition().x + "," + cell.getB2Body().getPosition().y + "," + cell.getState() +";";
-            }
-
-            pos += player1.getB2Body().getPosition().x + "," + player1.getB2Body().getPosition().y + ";" +
-                    player2.getB2Body().getPosition().x + "," + player2.getB2Body().getPosition().y + ";";
-
-            sendBuffer = pos.getBytes();
-
-            System.out.println(strings[1]);
-            sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("192.168.1.20"), 9999);
-
-            socket.send(sendPacket);
-
-        }
+//        if(isMultiplayer) {
+//
+//            String pos = "";
+//
+//            for (Cell cell : creator.getCells()) {
+//                pos += cell.getB2Body().getPosition().x + "," + cell.getB2Body().getPosition().y + "," + cell.getState() +";";
+//            }
+//
+//            pos += player1.getB2Body().getPosition().x + "," + player1.getB2Body().getPosition().y + ";" +
+//                    player2.getB2Body().getPosition().x + "," + player2.getB2Body().getPosition().y + ";";
+//
+//            sendBuffer = pos.getBytes();
+//
+//            System.out.println(strings[1]);
+//            sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("192.168.1.20"), 9999);
+//
+//            socket.send(sendPacket);
+//
+//        }
 
     }
 
