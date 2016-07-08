@@ -22,7 +22,7 @@ public class Cell extends Sprite {
     FixtureDef fdef;
 
 
-    public static final Texture NOT_INFECTED = new Texture("ball.png");
+    public static final Texture NOT_INFECTED = new Texture("cell.png");
 
 
     public Cell(PlayScreen screen, float x, float y) {
