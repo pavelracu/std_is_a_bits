@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import org.academiadecodigo.std.STDIsABits;
+import org.academiadecodigo.std.Tumor;
 
 
 public class Controller {
@@ -21,9 +21,9 @@ public class Controller {
     boolean upPressed, downPressed, leftPressed, rightPressed;
     OrthographicCamera cam;
 
-    public Controller(STDIsABits game){
+    public Controller(Tumor game){
         cam = new OrthographicCamera();
-        viewport = new FitViewport(STDIsABits.WIDTH, STDIsABits.HEIGHT - 50, cam);
+        viewport = new FitViewport(Tumor.WIDTH, Tumor.HEIGHT - 50, cam);
         stage = new Stage(viewport, game.sb);
 
         stage.addListener(new InputListener(){

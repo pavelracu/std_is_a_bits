@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import org.academiadecodigo.std.STDIsABits;
+import org.academiadecodigo.std.Tumor;
 
 /**
  * Created by Helia Marcos, David Neves, Nuno Pereira, Nelson Oliveira, Pavel Racu and Luis Salvado on 07/07/2016.
@@ -38,7 +38,7 @@ public class Hud implements Disposable {
         scorePlayer1 = 0;
         scorePlayer2 = 0;
 
-        viewport = new FitViewport(STDIsABits.WIDTH, STDIsABits.HEIGHT, new OrthographicCamera());
+        viewport = new FitViewport(Tumor.WIDTH, Tumor.HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, sb);
 
         Table table = new Table();

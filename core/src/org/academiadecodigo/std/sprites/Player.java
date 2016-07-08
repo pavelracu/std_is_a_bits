@@ -3,7 +3,7 @@ package org.academiadecodigo.std.sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.*;
-import org.academiadecodigo.std.STDIsABits;
+import org.academiadecodigo.std.Tumor;
 import org.academiadecodigo.std.screens.PlayScreen;
 
 /**
@@ -26,7 +26,7 @@ public class Player extends Sprite {
         super(infectedTexture);
         this.world = screen.getWorld();
         this.infectedTexture = infectedTexture;
-        setSize(this.getWidth() / STDIsABits.PPM, this.getHeight() / STDIsABits.PPM);
+        setSize(this.getWidth() / Tumor.PPM, this.getHeight() / Tumor.PPM);
 
         definePlayer(x, y, categoryBit);
     }
@@ -40,17 +40,17 @@ public class Player extends Sprite {
 
         // Cria a representação do objecto e define as propriedades do mesmo
         BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(x / STDIsABits.PPM, y / STDIsABits.PPM);
+        bodyDef.position.set(x / Tumor.PPM, y / Tumor.PPM);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         b2Body = world.createBody(bodyDef);
 
         // define a fisica do objecto
         fixtureDef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(PLAYER_RADIUS / STDIsABits.PPM);
+        shape.setRadius(PLAYER_RADIUS / Tumor.PPM);
 
         fixtureDef.filter.categoryBits = categoryBit;
-        fixtureDef.filter.maskBits = STDIsABits.BALL_BIT | STDIsABits.VIRUS1_BIT | STDIsABits.VIRUS2_BIT | STDIsABits.EDGE_BIT;
+        fixtureDef.filter.maskBits = Tumor.BALL_BIT | Tumor.VIRUS1_BIT | Tumor.VIRUS2_BIT | Tumor.EDGE_BIT;
 
         fixtureDef.shape = shape;
         fixtureDef.restitution = 1f;

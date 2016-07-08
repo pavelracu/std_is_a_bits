@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import org.academiadecodigo.std.screens.MenuScreen;
 
-public class STDIsABits extends Game {
+public class Tumor extends Game {
 
 	public static final int WIDTH = 1600;
 	public static final int HEIGHT = 960;
