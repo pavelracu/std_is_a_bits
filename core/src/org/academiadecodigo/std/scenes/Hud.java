@@ -33,7 +33,7 @@ public class Hud implements Disposable {
 
     public Hud(SpriteBatch sb) {
 
-        worldTimer = 180;
+        worldTimer = 10;
         timeCount = 0;
         scorePlayer1 = 0;
         scorePlayer2 = 0;
@@ -131,5 +131,13 @@ public class Hud implements Disposable {
         scoreLabel1.setText(String.format("%04d", scorePlayer1));
         scorePlayer2 = 0;
         scoreLabel2.setText(String.format("%04d", scorePlayer2));
+    }
+
+    public static Integer getScorePlayer1() {
+        return scorePlayer1;
+    }
+
+    public static Integer getScorePlayer2() {
+        return scorePlayer2;
     }
 }

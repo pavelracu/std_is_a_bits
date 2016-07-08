@@ -17,7 +17,7 @@ public class Cell extends Sprite {
     private World world;
     private Fixture fixture;
     private PlayScreen screen;
-    public Player player;
+    public int state;
     FixtureDef fdef;
 
 
@@ -40,7 +40,7 @@ public class Cell extends Sprite {
 
     private void defineCell() {
 
-        player = null;
+        state = 0;
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
         bdef.type = BodyDef.BodyType.DynamicBody;
@@ -54,7 +54,7 @@ public class Cell extends Sprite {
 
         fdef.shape = shape;
         fdef.restitution = 1f;
-        fdef.friction = 1f;
+        fdef.friction = 0.9f;
 
 
         fixture = b2Body.createFixture(fdef);
@@ -66,12 +66,12 @@ public class Cell extends Sprite {
         setPosition(b2Body.getPosition().x - getWidth() / 2, b2Body.getPosition().y - getHeight() / 2);
     }
 
-    public Player getPlayer() {
-        return player;
+    public int getState() {
+        return state;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void setState(int state) {
+        this.state = state;
     }
 
     public Body getB2Body() {

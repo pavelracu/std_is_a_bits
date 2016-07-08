@@ -94,10 +94,10 @@ public class PlayScreen implements Screen {
 
         creator = new B2WorldCreator(this);
 
-        player1 = new Player(this, 40, 460, new Texture("virus.png"), Tumor.VIRUS1_BIT);
+        player1 = new Player(this, 40, 460, new Texture("virus.png"), Tumor.VIRUS1_BIT, 1);
 
 
-        player2 = new Player(this, Tumor.WIDTH - 40, Tumor.HEIGHT - 460, new Texture("virus02.png"), Tumor.VIRUS2_BIT);
+        player2 = new Player(this, Tumor.WIDTH - 40, Tumor.HEIGHT - 460, new Texture("virus02.png"), Tumor.VIRUS2_BIT, 2);
 
 
         world.setContactListener(new WorldContactListener(manager));
@@ -120,7 +120,6 @@ public class PlayScreen implements Screen {
 
 
     private void handleNetwork1Input() {
-        System.out.println("XPTO: " + stringDir.equals("1"));
 
         if (stringDir.equals("1")) {
             player2.getB2Body().applyForceToCenter(new Vector2(0, Player.PLAYER_SPEED), true);
@@ -215,6 +214,18 @@ public class PlayScreen implements Screen {
 //
 //            }
 //        }
+//        for (Cell cell : creator.getCells()) {
+//            cell.update(dt);
+//            hud.addScore(1, cell.getState());
+//
+//        }
+
+//        if (MathUtils.random(100) < 10) {
+//            for (Cell cell : creator.getCells()) {
+//                cell.getB2Body().applyForceToCenter(new Vector2(MathUtils.random(-1f, 1f), MathUtils.random(-1f, 1f)), true);
+//
+//            }
+//        }
 
         player1.update(dt);
         player2.update(dt);
@@ -228,7 +239,7 @@ public class PlayScreen implements Screen {
 //            String pos = "";
 //
 //            for (Cell cell : creator.getCells()) {
-//                pos += cell.getB2Body().getPosition().x + "," + cell.getB2Body().getPosition().y + ";";
+//                pos += cell.getB2Body().getPosition().x + "," + cell.getB2Body().getPosition().y + "," + cell.getState() +";";
 //            }
 //
 //            pos += player1.getB2Body().getPosition().x + "," + player1.getB2Body().getPosition().y + ";" +
@@ -237,7 +248,7 @@ public class PlayScreen implements Screen {
 //            sendBuffer = pos.getBytes();
 //
 //            System.out.println(strings[1]);
-//            sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName(strings[1].split("/")[1]), Integer.parseInt(strings[2]));
+//            sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("192.168.1.20"), 9999);
 //
 //            socket.send(sendPacket);
 //
@@ -247,7 +258,7 @@ public class PlayScreen implements Screen {
 
     public boolean isGameOver() {
         for (Cell cell : creator.getCells()) {
-            if (cell.getPlayer() == null) {
+            if (cell.getState() == 0) {
                 return false;
             }
         }
@@ -257,7 +268,6 @@ public class PlayScreen implements Screen {
     private void gameOver() {
 
         game.setScreen(new GameOverScreen(game, manager));
-        //dispose();
 
     }
 
