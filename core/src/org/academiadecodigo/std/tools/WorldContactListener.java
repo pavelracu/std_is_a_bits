@@ -49,11 +49,13 @@ public class WorldContactListener implements ContactListener {
                             ((Cell) fixB.getUserData()).setTexture(Cell.NOT_INFECTED);
                         } else {
                             ((Cell) fixB.getUserData()).setPlayer(((Cell) fixA.getUserData()).player);
-                            ((Cell) fixB.getUserData()).setTexture(((Player) fixA.getUserData()).getInfectedTexture());
+                            ((Cell) fixB.getUserData()).setTexture((((Cell) fixA.getUserData()).player).getInfectedTexture());
                         }
                     } else {
-                        ((Cell) fixA.getUserData()).setPlayer(((Cell) fixB.getUserData()).player);
-                        ((Cell) fixA.getUserData()).setTexture(((Player) fixB.getUserData()).getInfectedTexture());
+                        if (((Cell) fixB.getUserData()).player != null) {
+                            ((Cell) fixA.getUserData()).setPlayer(((Cell) fixB.getUserData()).player);
+                            ((Cell) fixA.getUserData()).setTexture((((Cell) fixB.getUserData()).player).getInfectedTexture());
+                        }
                     }
                 }
                 break;
