@@ -33,7 +33,7 @@ public class Hud implements Disposable {
 
     public Hud(SpriteBatch sb) {
 
-        worldTimer = 300;
+        worldTimer = 180;
         timeCount = 0;
         scorePlayer1 = 0;
         scorePlayer2 = 0;

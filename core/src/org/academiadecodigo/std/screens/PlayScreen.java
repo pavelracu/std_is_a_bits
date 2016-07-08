@@ -78,7 +78,7 @@ public class PlayScreen implements Screen {
         player2 = new Player(this, STDIsABits.WIDTH - 40, STDIsABits.HEIGHT - 460, new Texture("virus02.png"), STDIsABits.VIRUS2_BIT);
 
 
-         world.setContactListener(new WorldContactListener());
+         world.setContactListener(new WorldContactListener(manager));
     }
 
     public void handleInput(float dt) {

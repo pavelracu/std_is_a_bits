@@ -1,5 +1,7 @@
 package org.academiadecodigo.std.tools;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.*;
 import org.academiadecodigo.std.STDIsABits;
 import org.academiadecodigo.std.sprites.Cell;
@@ -9,6 +11,12 @@ import org.academiadecodigo.std.sprites.Player;
  * Created by Helia Marcos, David Neves, Nuno Pereira, Nelson Oliveira, Pavel Racu and Luis Salvado on 07/07/2016.
  */
 public class WorldContactListener implements ContactListener {
+
+    private AssetManager manager;
+
+    public WorldContactListener(AssetManager manager) {
+        this.manager = manager;
+    }
 
     @Override
     public void beginContact(Contact contact) {
@@ -31,6 +39,7 @@ public class WorldContactListener implements ContactListener {
                     System.out.println("p1");
 
                 }
+                manager.get("infection.wav", Sound.class).play();
                 break;
 
             case STDIsABits.BALL_BIT | STDIsABits.VIRUS2_BIT:
@@ -44,6 +53,7 @@ public class WorldContactListener implements ContactListener {
                     System.out.println("p2");
 
                 }
+                manager.get("infection.wav", Sound.class).play();
                 break;
 
             case STDIsABits.BALL_BIT | STDIsABits.BALL_BIT:

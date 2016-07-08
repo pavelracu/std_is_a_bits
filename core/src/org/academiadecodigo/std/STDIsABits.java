@@ -5,6 +5,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -31,9 +32,10 @@ public class STDIsABits extends Game {
 
 		sb = new SpriteBatch();
 
-		/*manager = new AssetManager();
-		manager.load("audio/music.mp3", Music.class);
-		manager.finishLoading();*/
+		manager = new AssetManager();
+		manager.load("Skies.mp3", Music.class);
+		manager.load("infection.wav", Sound.class);
+		manager.finishLoading();
 
 		setScreen(new MenuScreen(this, manager));
 
@@ -49,7 +51,7 @@ public class STDIsABits extends Game {
 	public void dispose () {
 
 		super.dispose();
-		//manager.dispose();
+		manager.dispose();
 		sb.dispose();
 	}
 }
