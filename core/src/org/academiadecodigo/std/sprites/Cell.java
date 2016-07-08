@@ -17,7 +17,7 @@ public class Cell extends Sprite {
     private World world;
     private Fixture fixture;
     private PlayScreen screen;
-    public Player player;
+    public int player;
     FixtureDef fdef;
 
 
@@ -66,8 +66,8 @@ public class Cell extends Sprite {
         setPosition(b2Body.getPosition().x - getWidth() / 2, b2Body.getPosition().y - getHeight() / 2);
     }
 
-    public Player getPlayer() {
-        return player;
+    public int getPlayer() {
+
     }
 
     public void setPlayer(Player player) {

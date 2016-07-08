@@ -67,9 +67,9 @@ public class MenuScreen implements Screen {
             LinkedList<String> queue = new LinkedList<String>();
             if (isMultiplayer) {
                 MySpecialNelson mySpecialNelson = new MySpecialNelson(queue);
-                Client mySpecialClient = new Client();
+                //Client mySpecialClient = new Client();
                 pool.submit(mySpecialNelson);
-                pool.submit(mySpecialClient);
+                //pool.submit(mySpecialClient);
 
 //                Thread mySpecialNelson = new Thread(new MySpecialNelson(queue));
 //                Thread myClient = new Thread(new Client());
