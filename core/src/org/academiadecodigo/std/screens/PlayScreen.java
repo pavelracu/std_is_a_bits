@@ -20,7 +20,6 @@ import org.academiadecodigo.std.scenes.Hud;
 import org.academiadecodigo.std.sprites.Cell;
 import org.academiadecodigo.std.sprites.Player;
 import org.academiadecodigo.std.tools.B2WorldCreator;
-import org.academiadecodigo.std.tools.WorldContactListener;
 
 /**
  * Created by neves on 07/07/2016.
@@ -149,7 +148,7 @@ public class PlayScreen implements Screen {
 
     public boolean isGameOver() {
         for (Cell cell : creator.getCells()) {
-            if (cell.getPlayer == null) {
+            if (cell.getPlayer() == null) {
                 return false;
             }
         }

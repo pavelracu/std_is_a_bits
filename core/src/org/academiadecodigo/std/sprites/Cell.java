@@ -2,7 +2,6 @@ package org.academiadecodigo.std.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.physics.box2d.*;
 import org.academiadecodigo.std.STDIsABits;
 import org.academiadecodigo.std.screens.PlayScreen;
@@ -20,7 +19,7 @@ public class Cell extends Sprite {
     private PlayScreen screen;
     private Player player;
 
-    public static final Texture NOT_INFECTED = new Texture("ball.png");
+    public static final Texture NOT_INFECTED = new Texture("cellBW3.png");
     public static final Texture INFECTED_BY_1 = new Texture("blueball.png");
     public static final Texture INFECTED_BY_2 = new Texture("redball.png");
 
