@@ -47,26 +47,26 @@ public class WorldContactListener implements ContactListener {
                 break;
 
             case STDIsABits.BALL_BIT | STDIsABits.BALL_BIT:
-                if (fixA.getFilterData().categoryBits == STDIsABits.BALL_BIT && fixB.getFilterData().categoryBits == STDIsABits.BALL_BIT) {
-                    if (((Cell) fixA.getUserData()).player != null) {
-                        if (((Cell) fixB.getUserData()).player != null) {
-                            if (((Cell) fixB.getUserData()).player !=((Cell) fixA.getUserData()).player )
+                if (((Cell) fixA.getUserData()).player != null) {
+                    if (((Cell) fixB.getUserData()).player != null) {
+                        if (((Cell) fixB.getUserData()).player != ((Cell) fixA.getUserData()).player) {
                             ((Cell) fixA.getUserData()).setPlayer(null);
                             ((Cell) fixA.getUserData()).setTexture(Cell.NOT_INFECTED);
                             ((Cell) fixB.getUserData()).setPlayer(null);
                             ((Cell) fixB.getUserData()).setTexture(Cell.NOT_INFECTED);
                             System.out.println("none");
-                        } else {
-                            ((Cell) fixB.getUserData()).setPlayer(((Cell) fixA.getUserData()).player);
-                            ((Cell) fixB.getUserData()).setTexture((((Cell) fixA.getUserData()).player).getInfectedTexture());
                         }
                     } else {
-                        if (((Cell) fixB.getUserData()).player != null) {
-                            ((Cell) fixA.getUserData()).setPlayer(((Cell) fixB.getUserData()).player);
-                            ((Cell) fixA.getUserData()).setTexture((((Cell) fixB.getUserData()).player).getInfectedTexture());
-                        }
+                        ((Cell) fixB.getUserData()).setPlayer(((Cell) fixA.getUserData()).player);
+                        ((Cell) fixB.getUserData()).setTexture((((Cell) fixA.getUserData()).player).getInfectedTexture());
+                    }
+                } else {
+                    if (((Cell) fixB.getUserData()).player != null) {
+                        ((Cell) fixA.getUserData()).setPlayer(((Cell) fixB.getUserData()).player);
+                        ((Cell) fixA.getUserData()).setTexture((((Cell) fixB.getUserData()).player).getInfectedTexture());
                     }
                 }
+
                 break;
         }
     }
