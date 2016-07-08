@@ -11,7 +11,7 @@ import org.academiadecodigo.std.screens.PlayScreen;
  */
 public class Player extends Sprite {
 
-    private final int PLAYER_RADIUS = 20;
+    private final int PLAYER_RADIUS = 40;
     public static final float PLAYER_SPEED = 1f;
 
     private Body b2Body;
@@ -20,12 +20,15 @@ public class Player extends Sprite {
     private FixtureDef fixtureDef;
     private Texture infectedTexture;
 
+    private int playerNum;
 
-    public Player(PlayScreen screen, float x, float y, Texture infectedTexture, short categoryBit) {
+
+    public Player(PlayScreen screen, float x, float y, Texture infectedTexture, short categoryBit, int playerNum) {
 
         super(infectedTexture);
         this.world = screen.getWorld();
         this.infectedTexture = infectedTexture;
+        this.playerNum = playerNum;
         setSize(this.getWidth() / Tumor.PPM, this.getHeight() / Tumor.PPM);
 
         definePlayer(x, y, categoryBit);
@@ -53,7 +56,7 @@ public class Player extends Sprite {
         fixtureDef.filter.maskBits = Tumor.BALL_BIT | Tumor.VIRUS1_BIT | Tumor.VIRUS2_BIT | Tumor.EDGE_BIT;
 
         fixtureDef.shape = shape;
-        fixtureDef.restitution = 1f;
+        fixtureDef.restitution = 1.4f;
         fixtureDef.friction = 10f;
 
         fixture = b2Body.createFixture(fixtureDef);
@@ -70,5 +73,9 @@ public class Player extends Sprite {
 
     public Body getB2Body() {
         return b2Body;
+    }
+
+    public int getPlayerNum() {
+        return playerNum;
     }
 }

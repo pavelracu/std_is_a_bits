@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -94,10 +95,10 @@ public class PlayScreen implements Screen {
 
         creator = new B2WorldCreator(this);
 
-        player1 = new Player(this, 40, 460, new Texture("virus.png"), Tumor.VIRUS1_BIT);
+        player1 = new Player(this, 40, 460, new Texture("virus.png"), Tumor.VIRUS1_BIT, 1);
 
 
-        player2 = new Player(this, Tumor.WIDTH - 40, Tumor.HEIGHT - 460, new Texture("virus02.png"), Tumor.VIRUS2_BIT);
+        player2 = new Player(this, Tumor.WIDTH - 40, Tumor.HEIGHT - 460, new Texture("virus02.png"), Tumor.VIRUS2_BIT, 2);
 
 
         world.setContactListener(new WorldContactListener(manager));
@@ -201,18 +202,21 @@ public class PlayScreen implements Screen {
 
         hud.clearScore();
         for (Cell cell : creator.getCells()) {
+            Shape shape = cell.getB2Body().getFixtureList().get(0).getShape();
+            shape.setRadius(20 / Tumor.PPM);
             cell.update(dt);
-            if (cell.player == player1) {
-                hud.addScore(1, 1);
-            } else if (cell.player == player2) {
-                hud.addScore(1, 2);
-            }
+            hud.addScore(1, cell.getState());
+
         }
 
         if (MathUtils.random(100) < 10) {
             for (Cell cell : creator.getCells()) {
                 cell.getB2Body().applyForceToCenter(new Vector2(MathUtils.random(-1f, 1f), MathUtils.random(-1f, 1f)), true);
+                if (MathUtils.random(100) < 10) {
 
+                    Shape shape = cell.getB2Body().getFixtureList().get(0).getShape();
+                    shape.setRadius(25 / Tumor.PPM);
+                }
             }
         }
 
@@ -228,7 +232,7 @@ public class PlayScreen implements Screen {
             String pos = "";
 
             for (Cell cell : creator.getCells()) {
-                pos += cell.getB2Body().getPosition().x + "," + cell.getB2Body().getPosition().y + "," + cell.getPlayer(). +";";
+                pos += cell.getB2Body().getPosition().x + "," + cell.getB2Body().getPosition().y + "," + cell.getState() +";";
             }
 
             pos += player1.getB2Body().getPosition().x + "," + player1.getB2Body().getPosition().y + ";" +
@@ -247,7 +251,7 @@ public class PlayScreen implements Screen {
 
     public boolean isGameOver() {
         for (Cell cell : creator.getCells()) {
-            if (cell.getPlayer() == null) {
+            if (cell.getState() == 0) {
                 return false;
             }
         }
@@ -257,7 +261,6 @@ public class PlayScreen implements Screen {
     private void gameOver() {
 
         game.setScreen(new GameOverScreen(game, manager));
-        //dispose();
 
     }
 

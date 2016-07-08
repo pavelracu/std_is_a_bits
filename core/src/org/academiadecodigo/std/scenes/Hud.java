@@ -132,4 +132,12 @@ public class Hud implements Disposable {
         scorePlayer2 = 0;
         scoreLabel2.setText(String.format("%04d", scorePlayer2));
     }
+
+    public static Integer getScorePlayer1() {
+        return scorePlayer1;
+    }
+
+    public static Integer getScorePlayer2() {
+        return scorePlayer2;
+    }
 }
