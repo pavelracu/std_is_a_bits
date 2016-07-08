@@ -45,12 +45,12 @@ public class Hud implements Disposable {
         table.top();
         table.setFillParent(true);
 
-        countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        scoreLabel1 = new Label(String.format("%04d", scorePlayer1), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        scoreLabel2 = new Label(String.format("%04d", scorePlayer2), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        player1Label = new Label("PLAYER 1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        player2Label = new Label("PLAYER 2", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.GRAY));
+        scoreLabel1 = new Label(String.format("%06d", scorePlayer1), new Label.LabelStyle(new BitmapFont(), Color.GRAY));
+        scoreLabel2 = new Label(String.format("%06d", scorePlayer2), new Label.LabelStyle(new BitmapFont(), Color.GRAY));
+        timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.GRAY));
+        player1Label = new Label("PLAYER 1", new Label.LabelStyle(new BitmapFont(), Color.GRAY));
+        player2Label = new Label("PLAYER 2", new Label.LabelStyle(new BitmapFont(), Color.GRAY));
 
         table.add(player1Label).expandX().padTop(10);
         table.add(timeLabel).expandX().padTop(10);
@@ -118,5 +118,12 @@ public class Hud implements Disposable {
     public void dispose() {
 
         stage.dispose();
+    }
+
+    public void clearScore() {
+        scorePlayer1 = 0;
+        scoreLabel1.setText(String.format("%04d", scorePlayer1));
+        scorePlayer2 = 0;
+        scoreLabel2.setText(String.format("%04d", scorePlayer2));
     }
 }

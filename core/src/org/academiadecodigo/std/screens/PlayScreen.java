@@ -133,8 +133,14 @@ public class PlayScreen implements Screen {
 
         world.step(1 / 60f, 6, 2);
 
+        hud.clearScore();
         for (Cell cell : creator.getCells()) {
             cell.update(dt);
+            if (cell.player == player1) {
+                hud.addScore(1, 1);
+            } else if (cell.player == player2) {
+                hud.addScore(1, 2);
+            }
         }
 
         player1.update(dt);
@@ -147,7 +153,7 @@ public class PlayScreen implements Screen {
 
     public boolean isGameOver() {
         for (Cell cell : creator.getCells()) {
-            if (cell.player == null) {
+           if (cell.getPlayer() == null) {
                 return false;
             }
         }
