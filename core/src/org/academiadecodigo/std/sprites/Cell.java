@@ -17,8 +17,8 @@ public class Cell extends Sprite {
     private World world;
     private Fixture fixture;
     private PlayScreen screen;
-    public int state;
-    FixtureDef fdef;
+    private int state;
+    private FixtureDef fdef;
 
 
     public static final Texture NOT_INFECTED = new Texture("cell.png");

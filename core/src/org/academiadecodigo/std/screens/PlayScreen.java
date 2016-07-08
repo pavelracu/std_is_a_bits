@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -140,6 +141,8 @@ public class PlayScreen implements Screen {
 
         hud.clearScore();
         for (Cell cell : creator.getCells()) {
+            Shape shape = cell.getB2Body().getFixtureList().get(0).getShape();
+            shape.setRadius(20 / Tumor.PPM);
             cell.update(dt);
             hud.addScore(1, cell.getState());
 
@@ -148,7 +151,11 @@ public class PlayScreen implements Screen {
         if (MathUtils.random(100) < 10) {
             for (Cell cell : creator.getCells()) {
                 cell.getB2Body().applyForceToCenter(new Vector2(MathUtils.random(-1f, 1f), MathUtils.random(-1f, 1f)), true);
+                if (MathUtils.random(100) < 10) {
 
+                    Shape shape = cell.getB2Body().getFixtureList().get(0).getShape();
+                    shape.setRadius(25 / Tumor.PPM);
+                }
             }
         }
 
