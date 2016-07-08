@@ -63,7 +63,7 @@ public class PlayScreen implements Screen {
 
     DatagramSocket socket = null;
 
-    byte[] sendBuffer = new byte[1024];
+    byte[] sendBuffer;
 
     String stringDir = "";
     String command = "";
@@ -231,17 +231,20 @@ public class PlayScreen implements Screen {
             String pos = "";
 
             for (Cell cell : creator.getCells()) {
+                System.out.println("here");
                 pos += cell.getB2Body().getPosition().x + "," + cell.getB2Body().getPosition().y + "," + cell.getState() +";";
             }
 
             pos += player1.getB2Body().getPosition().x + "," + player1.getB2Body().getPosition().y + ";" +
                     player2.getB2Body().getPosition().x + "," + player2.getB2Body().getPosition().y + ";";
 
+            sendBuffer = new byte[pos.getBytes().length];
             sendBuffer = pos.getBytes();
+
 
             System.out.println(strings[1]);
             sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("192.168.1.20"), 9999);
-
+            System.out.println("truca truca" + new String(sendPacket.getData()));
             socket.send(sendPacket);
 
         }

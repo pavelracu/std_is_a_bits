@@ -21,7 +21,7 @@ public class Client implements InputProcessor, Runnable {
     DirectionType dir = DirectionType.NULL;
     byte[] bytes = new byte[2];
     String hostName = "192.168.1.25";
-    int portNumber = 8888;
+    int portNumber = 9999;
     DatagramSocket socket = null;
 
 
