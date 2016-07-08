@@ -12,13 +12,15 @@ import org.academiadecodigo.std.screens.PlayScreen;
  */
 public class Cell extends Sprite {
 
-    private final int CELL_RADIUS = 10;
+    public static final int CELL_RADIUS = 10;
 
     private Body b2Body;
     private World world;
     private Fixture fixture;
     private PlayScreen screen;
     public Player player;
+    FixtureDef fdef;
+
 
     public static final Texture NOT_INFECTED = new Texture("ball.png");
 
@@ -45,7 +47,7 @@ public class Cell extends Sprite {
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2Body = world.createBody(bdef);
 
-        FixtureDef fdef = new FixtureDef();
+        fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(CELL_RADIUS / STDIsABits.PPM);
         fdef.filter.categoryBits = STDIsABits.BALL_BIT;
@@ -73,5 +75,11 @@ public class Cell extends Sprite {
         this.player = player;
     }
 
+    public Body getB2Body() {
+        return b2Body;
+    }
 
+    public FixtureDef getFdef() {
+        return fdef;
+    }
 }
