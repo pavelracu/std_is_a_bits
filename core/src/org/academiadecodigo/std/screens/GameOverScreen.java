@@ -4,20 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import org.academiadecodigo.std.Tumor;
-import javafx.scene.control.Tab;
 import org.academiadecodigo.std.scenes.Hud;
 
 import static com.badlogic.gdx.Gdx.graphics;
@@ -32,10 +29,6 @@ public class GameOverScreen implements Screen {
     private Viewport viewport;
 
     private AssetManager manager;
-    private Music music;
-    private BitmapFont font;
-
-    private int score;
 
     private Texture texture;
 
@@ -67,7 +60,7 @@ public class GameOverScreen implements Screen {
         winnerScore = new Label(winner + " wins, " + score + " cells were infected!", new Label.LabelStyle(new BitmapFont(), Color.LIGHT_GRAY));
         winnerScore.setFontScale(3f);
 
-        table.add(winnerScore).expandX().padTop(650);
+        table.add(winnerScore).expandX().padTop(640);
 
         stage.addActor(table);
 
