@@ -27,7 +27,7 @@ public class Controller {
 
     public Controller(STDIsABits game){
         cam = new OrthographicCamera();
-        viewport = new FitViewport(STDIsABits.WIDTH, STDIsABits.HEIGHT, cam);
+        viewport = new FitViewport(STDIsABits.WIDTH / STDIsABits.PPM, STDIsABits.HEIGHT / STDIsABits.PPM, cam);
         stage = new Stage(viewport, game.sb);
 
         stage.addListener(new InputListener(){

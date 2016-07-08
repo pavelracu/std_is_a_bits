@@ -93,40 +93,32 @@ public class PlayScreen implements Screen {
     }
 
     private void handlePlayer1Input() {
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && player1.getB2Body().getPosition().y + player1.getHeight() / 2 < STDIsABits.HEIGHT / STDIsABits.PPM) {
+        if (controller.isUpPressed()) {
             player1.getB2Body().applyForceToCenter(new Vector2(0, Player.PLAYER_SPEED), true);
-            //player1.getB2Body().setLinearVelocity(0, Player.PLAYER_SPEED);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.S) && player1.getB2Body().getPosition().y - player1.getHeight() / 2 > 0) {
+        if (controller.isDownPressed()) {
             player1.getB2Body().applyForceToCenter(new Vector2(0, -Player.PLAYER_SPEED), true);
-            //player1.getB2Body().setLinearVelocity(0, -Player.PLAYER_SPEED);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.A) && player1.getB2Body().getPosition().x - player1.getWidth() / 2 > 0) {
+        if (controller.isLeftPressed()) {
             player1.getB2Body().applyForceToCenter(new Vector2(-Player.PLAYER_SPEED, 0), true);
-            //player1.getB2Body().setLinearVelocity(-Player.PLAYER_SPEED, 0);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.D) && player1.getB2Body().getPosition().x + player1.getWidth() / 2 < STDIsABits.WIDTH / STDIsABits.PPM) {
+        if (controller.isRightPressed()) {
             player1.getB2Body().applyForceToCenter(new Vector2(Player.PLAYER_SPEED, 0), true);
-            //player1.getB2Body().setLinearVelocity(Player.PLAYER_SPEED, 0);
         }
     }
 
     private void handlePlayer2Input() {
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && player2.getB2Body().getPosition().y + player2.getHeight() / 2 < STDIsABits.HEIGHT / STDIsABits.PPM) {
             player2.getB2Body().applyForceToCenter(new Vector2(0, Player.PLAYER_SPEED), true);
-            //player2.getB2Body().setLinearVelocity(0,Player.PLAYER_SPEED );
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && player2.getB2Body().getPosition().y - player2.getHeight() / 2 > 0) {
             player2.getB2Body().applyForceToCenter(new Vector2(0, -Player.PLAYER_SPEED), true);
-            //player2.getB2Body().setLinearVelocity(0, -Player.PLAYER_SPEED);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player2.getB2Body().getPosition().x - player2.getWidth() / 2 > 0) {
             player2.getB2Body().applyForceToCenter(new Vector2(-Player.PLAYER_SPEED, 0), true);
-            //player2.getB2Body().setLinearVelocity(-Player.PLAYER_SPEED, 0);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player2.getB2Body().getPosition().x + player2.getWidth() / 2 < STDIsABits.WIDTH / STDIsABits.PPM) {
             player2.getB2Body().applyForceToCenter(new Vector2(Player.PLAYER_SPEED, 0), true);
-            //player2.getB2Body().setLinearVelocity(Player.PLAYER_SPEED, 0);
         }
     }
 
