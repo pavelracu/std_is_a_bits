@@ -20,12 +20,15 @@ public class Player extends Sprite {
     private FixtureDef fixtureDef;
     private Texture infectedTexture;
 
+    private int playerNum;
 
-    public Player(PlayScreen screen, float x, float y, Texture infectedTexture, short categoryBit) {
+
+    public Player(PlayScreen screen, float x, float y, Texture infectedTexture, short categoryBit, int playerNum) {
 
         super(infectedTexture);
         this.world = screen.getWorld();
         this.infectedTexture = infectedTexture;
+        this.playerNum = playerNum;
         setSize(this.getWidth() / Tumor.PPM, this.getHeight() / Tumor.PPM);
 
         definePlayer(x, y, categoryBit);
@@ -70,5 +73,9 @@ public class Player extends Sprite {
 
     public Body getB2Body() {
         return b2Body;
+    }
+
+    public int getPlayerNum() {
+        return playerNum;
     }
 }
