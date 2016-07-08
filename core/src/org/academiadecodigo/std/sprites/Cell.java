@@ -20,7 +20,7 @@ public class Cell extends Sprite {
     private PlayScreen screen;
     public Player player;
 
-    public static final Texture NOT_INFECTED = new Texture("ball.png");
+    public static final Texture NOT_INFECTED = new Texture("cell.png");
 
 
     public Cell(PlayScreen screen, float x, float y) {

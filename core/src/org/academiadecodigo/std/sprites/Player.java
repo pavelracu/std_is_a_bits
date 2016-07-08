@@ -23,7 +23,7 @@ public class Player extends Sprite {
 
     public Player(PlayScreen screen, float x, float y, Texture infectedTexture, short categoryBit) {
 
-        super(new Texture("ball.png"));
+        super(infectedTexture);
         this.world = screen.getWorld();
         this.infectedTexture = infectedTexture;
         setSize(this.getWidth() / STDIsABits.PPM, this.getHeight() / STDIsABits.PPM);
