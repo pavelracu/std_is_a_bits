@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import org.academiadecodigo.std.STDIsABits;
+import org.academiadecodigo.std.controller.Controller;
 import org.academiadecodigo.std.scenes.Hud;
 import org.academiadecodigo.std.sprites.Cell;
 import org.academiadecodigo.std.sprites.Player;
@@ -35,6 +36,7 @@ public class PlayScreen implements Screen {
     private Viewport gamePort;
 
     private Hud hud;
+    private Controller controller;
 
     private TmxMapLoader mapLoader;
     private TiledMap map;
@@ -78,7 +80,9 @@ public class PlayScreen implements Screen {
         player2 = new Player(this, STDIsABits.WIDTH - 40, STDIsABits.HEIGHT - 460, new Texture("redball.png"), STDIsABits.VIRUS2_BIT);
 
 
-         world.setContactListener(new WorldContactListener());
+        world.setContactListener(new WorldContactListener());
+
+        controller = new Controller(game);
     }
 
     public void handleInput(float dt) {
@@ -92,13 +96,16 @@ public class PlayScreen implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.W) && player1.getB2Body().getPosition().y + player1.getHeight() / 2 < STDIsABits.HEIGHT / STDIsABits.PPM) {
             player1.getB2Body().applyForceToCenter(new Vector2(0, Player.PLAYER_SPEED), true);
             //player1.getB2Body().setLinearVelocity(0, Player.PLAYER_SPEED);
-        } if (Gdx.input.isKeyPressed(Input.Keys.S) && player1.getB2Body().getPosition().y - player1.getHeight() / 2 > 0) {
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.S) && player1.getB2Body().getPosition().y - player1.getHeight() / 2 > 0) {
             player1.getB2Body().applyForceToCenter(new Vector2(0, -Player.PLAYER_SPEED), true);
             //player1.getB2Body().setLinearVelocity(0, -Player.PLAYER_SPEED);
-        } if (Gdx.input.isKeyPressed(Input.Keys.A) && player1.getB2Body().getPosition().x - player1.getWidth() / 2 > 0) {
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.A) && player1.getB2Body().getPosition().x - player1.getWidth() / 2 > 0) {
             player1.getB2Body().applyForceToCenter(new Vector2(-Player.PLAYER_SPEED, 0), true);
             //player1.getB2Body().setLinearVelocity(-Player.PLAYER_SPEED, 0);
-        } if (Gdx.input.isKeyPressed(Input.Keys.D) && player1.getB2Body().getPosition().x + player1.getWidth() / 2 < STDIsABits.WIDTH / STDIsABits.PPM) {
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.D) && player1.getB2Body().getPosition().x + player1.getWidth() / 2 < STDIsABits.WIDTH / STDIsABits.PPM) {
             player1.getB2Body().applyForceToCenter(new Vector2(Player.PLAYER_SPEED, 0), true);
             //player1.getB2Body().setLinearVelocity(Player.PLAYER_SPEED, 0);
         }
@@ -108,13 +115,16 @@ public class PlayScreen implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && player2.getB2Body().getPosition().y + player2.getHeight() / 2 < STDIsABits.HEIGHT / STDIsABits.PPM) {
             player2.getB2Body().applyForceToCenter(new Vector2(0, Player.PLAYER_SPEED), true);
             //player2.getB2Body().setLinearVelocity(0,Player.PLAYER_SPEED );
-        } if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && player2.getB2Body().getPosition().y - player2.getHeight() / 2 > 0) {
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && player2.getB2Body().getPosition().y - player2.getHeight() / 2 > 0) {
             player2.getB2Body().applyForceToCenter(new Vector2(0, -Player.PLAYER_SPEED), true);
             //player2.getB2Body().setLinearVelocity(0, -Player.PLAYER_SPEED);
-        } if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player2.getB2Body().getPosition().x - player2.getWidth() / 2 > 0) {
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player2.getB2Body().getPosition().x - player2.getWidth() / 2 > 0) {
             player2.getB2Body().applyForceToCenter(new Vector2(-Player.PLAYER_SPEED, 0), true);
             //player2.getB2Body().setLinearVelocity(-Player.PLAYER_SPEED, 0);
-        } if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player2.getB2Body().getPosition().x + player2.getWidth() / 2 < STDIsABits.WIDTH / STDIsABits.PPM) {
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player2.getB2Body().getPosition().x + player2.getWidth() / 2 < STDIsABits.WIDTH / STDIsABits.PPM) {
             player2.getB2Body().applyForceToCenter(new Vector2(Player.PLAYER_SPEED, 0), true);
             //player2.getB2Body().setLinearVelocity(Player.PLAYER_SPEED, 0);
         }
@@ -162,7 +172,7 @@ public class PlayScreen implements Screen {
 
     public boolean isGameOver() {
         for (Cell cell : creator.getCells()) {
-           if (cell.getPlayer() == null) {
+            if (cell.getPlayer() == null) {
                 return false;
             }
         }
@@ -213,6 +223,7 @@ public class PlayScreen implements Screen {
     public void resize(int width, int height) {
 
         gamePort.update(width, height);
+        controller.resize(width, height);
     }
 
     @Override
