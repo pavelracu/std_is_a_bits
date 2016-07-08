@@ -17,11 +17,9 @@ public class Cell extends Sprite {
     private World world;
     private Fixture fixture;
     private PlayScreen screen;
-    private Player player;
+    public Player player;
 
-    public static final Texture NOT_INFECTED = new Texture("cellBW3.png");
-    public static final Texture INFECTED_BY_1 = new Texture("blueball.png");
-    public static final Texture INFECTED_BY_2 = new Texture("redball.png");
+    public static final Texture NOT_INFECTED = new Texture("ball.png");
 
 
     public Cell(PlayScreen screen, float x, float y) {
