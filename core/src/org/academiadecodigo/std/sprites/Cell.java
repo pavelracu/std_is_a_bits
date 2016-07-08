@@ -57,7 +57,7 @@ public class Cell extends Sprite {
 
 
         fixture = b2Body.createFixture(fdef);
-        b2Body.createFixture(fdef).setUserData(this);
+        fixture.setUserData(this);
     }
 
     public void update(float dt) {

@@ -79,7 +79,7 @@ public class PlayScreen implements Screen {
         player2.getFixtureDef().filter.categoryBits = STDIsABits.VIRUS2_BIT;
         player2.getFixtureDef().filter.maskBits = STDIsABits.BALL_BIT | STDIsABits.VIRUS1_BIT | STDIsABits.EDGE_BIT;
 
-        world.setContactListener(new WorldContactListener());
+         world.setContactListener(new WorldContactListener());
     }
 
     public void handleInput(float dt) {
