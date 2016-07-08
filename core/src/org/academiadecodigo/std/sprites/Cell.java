@@ -65,9 +65,9 @@ public class Cell extends Sprite {
         setPosition(b2Body.getPosition().x - getWidth() / 2, b2Body.getPosition().y - getHeight() / 2);
     }
 
-    /*public Player getPlayer() {
+    public Player getPlayer() {
         return player;
-    }*/
+    }
 
     public void setPlayer(Player player) {
         this.player = player;

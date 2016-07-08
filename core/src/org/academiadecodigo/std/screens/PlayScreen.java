@@ -153,7 +153,7 @@ public class PlayScreen implements Screen {
 
     public boolean isGameOver() {
         for (Cell cell : creator.getCells()) {
-            if (cell.player == null) {
+           if (cell.getPlayer() == null) {
                 return false;
             }
         }
