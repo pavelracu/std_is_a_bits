@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -140,6 +141,14 @@ public class PlayScreen implements Screen {
                 hud.addScore(1, 1);
             } else if (cell.player == player2) {
                 hud.addScore(1, 2);
+            }
+        }
+
+        if (MathUtils.random(100) < 10) {
+            for (Cell cell : creator.getCells()) {
+                cell.getB2Body().applyForceToCenter(new Vector2(MathUtils.random(-1f, 1f), MathUtils.random(-1f, 1f)), true);
+
+                System.out.println("sgd");
             }
         }
 
