@@ -75,10 +75,10 @@ public class PlayScreen implements Screen {
 
         creator = new B2WorldCreator(this);
 
-        player1 = new Player(this, 40, 460, new Texture("virus.png"), Tumor.VIRUS1_BIT);
+        player1 = new Player(this, 40, 460, new Texture("virus.png"), Tumor.VIRUS1_BIT, 1);
 
 
-        player2 = new Player(this, Tumor.WIDTH - 40, Tumor.HEIGHT - 460, new Texture("virus02.png"), Tumor.VIRUS2_BIT);
+        player2 = new Player(this, Tumor.WIDTH - 40, Tumor.HEIGHT - 460, new Texture("virus02.png"), Tumor.VIRUS2_BIT, 2);
 
 
         world.setContactListener(new WorldContactListener(manager));
@@ -141,11 +141,8 @@ public class PlayScreen implements Screen {
         hud.clearScore();
         for (Cell cell : creator.getCells()) {
             cell.update(dt);
-            if (cell.player == player1) {
-                hud.addScore(1, 1);
-            } else if (cell.player == player2) {
-                hud.addScore(1, 2);
-            }
+            hud.addScore(1, cell.getState());
+
         }
 
         if (MathUtils.random(100) < 10) {
@@ -165,7 +162,7 @@ public class PlayScreen implements Screen {
 
     public boolean isGameOver() {
         for (Cell cell : creator.getCells()) {
-            if (cell.getPlayer() == null) {
+            if (cell.getState() == 0) {
                 return false;
             }
         }

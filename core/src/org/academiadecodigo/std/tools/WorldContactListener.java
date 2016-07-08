@@ -29,14 +29,13 @@ public class WorldContactListener implements ContactListener {
         switch (cDef) {
             case Tumor.BALL_BIT | Tumor.VIRUS1_BIT:
                 if (fixA.getFilterData().categoryBits == Tumor.BALL_BIT) {
-                    ((Cell) fixA.getUserData()).player = (Player) fixB.getUserData();
+                    ((Cell) fixA.getUserData()).setState(((Player) fixB.getUserData()).getPlayerNum());
                     ((Cell) fixA.getUserData()).setTexture(((Player) fixB.getUserData()).getInfectedTexture());
-                    System.out.println("p1");
 
                 } else {
-                    ((Cell) fixB.getUserData()).player = (Player) fixA.getUserData();
+                    ((Cell) fixB.getUserData()).setState(((Player) fixA.getUserData()).getPlayerNum());
                     ((Cell) fixB.getUserData()).setTexture(((Player) fixA.getUserData()).getInfectedTexture());
-                    System.out.println("p1");
+
 
                 }
                 manager.get("infection.wav", Sound.class).play();
@@ -44,11 +43,11 @@ public class WorldContactListener implements ContactListener {
 
             case Tumor.BALL_BIT | Tumor.VIRUS2_BIT:
                 if (fixA.getFilterData().categoryBits == Tumor.BALL_BIT) {
-                    ((Cell) fixA.getUserData()).player = (Player) fixB.getUserData();
+                    ((Cell) fixA.getUserData()).setState(((Player) fixB.getUserData()).getPlayerNum());
                     ((Cell) fixA.getUserData()).setTexture(((Player) fixB.getUserData()).getInfectedTexture());
                     System.out.println("p2");
                 } else {
-                    ((Cell) fixB.getUserData()).player = (Player) fixA.getUserData();
+                    ((Cell) fixB.getUserData()).setState(((Player) fixA.getUserData()).getPlayerNum());
                     ((Cell) fixB.getUserData()).setTexture(((Player) fixA.getUserData()).getInfectedTexture());
                     System.out.println("p2");
 
@@ -57,23 +56,23 @@ public class WorldContactListener implements ContactListener {
                 break;
 
             case Tumor.BALL_BIT | Tumor.BALL_BIT:
-                if (((Cell) fixA.getUserData()).player != null) {
-                    if (((Cell) fixB.getUserData()).player != null) {
-                        if (((Cell) fixB.getUserData()).player != ((Cell) fixA.getUserData()).player) {
-                            ((Cell) fixA.getUserData()).setPlayer(null);
+                if (((Cell) fixA.getUserData()).getState() != 0) {
+                    if (((Cell) fixB.getUserData()).getState() != 0) {
+                        if (((Cell) fixB.getUserData()).getState() != ((Cell) fixA.getUserData()).getState()) {
+                            ((Cell) fixA.getUserData()).setState(0);
                             ((Cell) fixA.getUserData()).setTexture(Cell.NOT_INFECTED);
-                            ((Cell) fixB.getUserData()).setPlayer(null);
+                            ((Cell) fixB.getUserData()).setState(0);
                             ((Cell) fixB.getUserData()).setTexture(Cell.NOT_INFECTED);
-                            System.out.println("none");
+
                         }
                     } else {
-                        ((Cell) fixB.getUserData()).setPlayer(((Cell) fixA.getUserData()).player);
-                        ((Cell) fixB.getUserData()).setTexture((((Cell) fixA.getUserData()).player).getInfectedTexture());
+                        ((Cell) fixB.getUserData()).setState(((Cell) fixA.getUserData()).getState());
+                        ((Cell) fixB.getUserData()).setTexture(((Cell) fixA.getUserData()).getTexture());
                     }
                 } else {
-                    if (((Cell) fixB.getUserData()).player != null) {
-                        ((Cell) fixA.getUserData()).setPlayer(((Cell) fixB.getUserData()).player);
-                        ((Cell) fixA.getUserData()).setTexture((((Cell) fixB.getUserData()).player).getInfectedTexture());
+                    if (((Cell) fixB.getUserData()).getState() != 0) {
+                        ((Cell) fixA.getUserData()).setState(((Cell) fixB.getUserData()).getState());
+                        ((Cell) fixA.getUserData()).setTexture(((Cell) fixB.getUserData()).getTexture());
                     }
                 }
 
