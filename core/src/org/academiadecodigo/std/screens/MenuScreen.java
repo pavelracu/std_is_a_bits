@@ -10,14 +10,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import org.academiadecodigo.std.STDIsABits;
+import org.academiadecodigo.std.Tumor;
 
 /**
  * Created by Helia Marcos, David Neves, Nuno Pereira, Nelson Oliveira, Pavel Racu and Luis Salvado on 07/07/2016.
  */
 public class MenuScreen implements Screen {
 
-    private STDIsABits game;
+    private Tumor game;
     private OrthographicCamera cam;
     private Viewport viewport;
 
@@ -27,12 +27,12 @@ public class MenuScreen implements Screen {
     private Texture texture;
 
 
-    public MenuScreen(STDIsABits game, AssetManager manager) {
+    public MenuScreen(Tumor game, AssetManager manager) {
         this.game = game;
         this.manager = manager;
 
         cam = new OrthographicCamera();
-        viewport = new FitViewport(STDIsABits.WIDTH, STDIsABits.HEIGHT, cam);
+        viewport = new FitViewport(Tumor.WIDTH, Tumor.HEIGHT, cam);
 
         cam.position.set(viewport.getWorldWidth() / 2, viewport.getScreenHeight() / 2, 0);
 

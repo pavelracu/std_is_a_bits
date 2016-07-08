@@ -5,38 +5,75 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import org.academiadecodigo.std.STDIsABits;
+import org.academiadecodigo.std.Tumor;
+import javafx.scene.control.Tab;
+import org.academiadecodigo.std.scenes.Hud;
+
+import static com.badlogic.gdx.Gdx.graphics;
 
 /**
  * Created by Helia Marcos, David Neves, Nuno Pereira, Nelson Oliveira, Pavel Racu and Luis Salvado on 07-07-2016.
  */
 public class GameOverScreen implements Screen {
 
-    private STDIsABits game;
+    private Tumor game;
     private OrthographicCamera cam;
     private Viewport viewport;
 
     private AssetManager manager;
     private Music music;
+    private BitmapFont font;
+
+    private int score;
 
     private Texture texture;
 
-    public GameOverScreen(STDIsABits game, AssetManager manager) {
+    private static Label scorePlayer;
+    private Label winnerScore;
+
+    public Stage stage;
+
+    public GameOverScreen(Tumor game, AssetManager manager) {
         this.game = game;
         this.manager = manager;
 
         cam = new OrthographicCamera();
-        viewport = new FitViewport(STDIsABits.WIDTH, STDIsABits.HEIGHT, cam);
+        viewport = new FitViewport(Tumor.WIDTH, Tumor.HEIGHT, cam);
+        stage = new Stage(viewport, game.sb);
+
+        Table table = new Table();
+        table.bottom();
+        table.setFillParent(true);
+        String winner;
+        int score;
+        if(Hud.getScorePlayer1() > Hud.getScorePlayer2()){
+            winner = new String("PLAYER 1");
+            score = Hud.getScorePlayer1();
+        }else {
+            winner = new String("PLAYER 2");
+            score = Hud.getScorePlayer2();
+        }
+        winnerScore = new Label(winner + " wins, " + score + " cells were infected!", new Label.LabelStyle(new BitmapFont(), Color.LIGHT_GRAY));
+        winnerScore.setFontScale(3f);
+
+        table.add(winnerScore).expandX().padBottom(250);
+
+        stage.addActor(table);
 
         cam.position.set(viewport.getWorldWidth() / 2, viewport.getScreenHeight(), 0);
 
-
-        texture = new Texture("gameover.png"); //TODO: background path
+        texture = new Texture("gameover.png");
     }
 
     public void handleInput(float dt) {
@@ -72,6 +109,7 @@ public class GameOverScreen implements Screen {
         game.sb.draw(texture, 0, cam.position.y - cam.viewportHeight / 2);
 
         game.sb.end();
+        stage.draw();
 
     }
 

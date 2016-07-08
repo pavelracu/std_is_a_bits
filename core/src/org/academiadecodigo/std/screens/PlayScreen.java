@@ -17,7 +17,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import org.academiadecodigo.std.STDIsABits;
+import org.academiadecodigo.std.Tumor;
 import org.academiadecodigo.std.controller.Controller;
 import org.academiadecodigo.std.scenes.Hud;
 import org.academiadecodigo.std.sprites.Cell;
@@ -30,7 +30,7 @@ import org.academiadecodigo.std.tools.WorldContactListener;
  */
 public class PlayScreen implements Screen {
 
-    private STDIsABits game;
+    private Tumor game;
     private AssetManager manager;
 
     private OrthographicCamera gameCam;
@@ -52,7 +52,7 @@ public class PlayScreen implements Screen {
 
     private Cell cell;
 
-    public PlayScreen(STDIsABits game, AssetManager manager) {
+    public PlayScreen(Tumor game, AssetManager manager) {
 
         this.game = game;
         this.manager = manager;
@@ -63,22 +63,22 @@ public class PlayScreen implements Screen {
     private void init() {
 
         gameCam = new OrthographicCamera();
-        gamePort = new FitViewport(STDIsABits.WIDTH / STDIsABits.PPM, STDIsABits.HEIGHT / STDIsABits.PPM, gameCam);
+        gamePort = new FitViewport(Tumor.WIDTH / Tumor.PPM, Tumor.HEIGHT / Tumor.PPM, gameCam);
         hud = new Hud(game.sb);
 
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("game1.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map, 1 / STDIsABits.PPM);
+        renderer = new OrthogonalTiledMapRenderer(map, 1 / Tumor.PPM);
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
         world = new World(new Vector2(0, 0), true);
 
         creator = new B2WorldCreator(this);
 
-        player1 = new Player(this, 40, 460, new Texture("virus.png"), STDIsABits.VIRUS1_BIT);
+        player1 = new Player(this, 40, 460, new Texture("virus.png"), Tumor.VIRUS1_BIT);
 
 
-        player2 = new Player(this, STDIsABits.WIDTH - 40, STDIsABits.HEIGHT - 460, new Texture("virus02.png"), STDIsABits.VIRUS2_BIT);
+        player2 = new Player(this, Tumor.WIDTH - 40, Tumor.HEIGHT - 460, new Texture("virus02.png"), Tumor.VIRUS2_BIT);
 
 
         world.setContactListener(new WorldContactListener(manager));
