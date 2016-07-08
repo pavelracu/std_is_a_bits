@@ -35,9 +35,6 @@ public class GameOverScreen implements Screen {
 
         cam.position.set(viewport.getWorldWidth() / 2, viewport.getScreenHeight(), 0);
 
-       /* music = manager.get("", Music.class); //TODO: music path
-        music.setLooping(true);
-        music.play();*/
 
         texture = new Texture("gameover.png"); //TODO: background path
     }
