@@ -6,7 +6,7 @@ import org.academiadecodigo.std.sprites.Cell;
 import org.academiadecodigo.std.sprites.Player;
 
 /**
- * Created by neves on 07/07/2016.
+ * Created by Helia Marcos, David Neves, Nuno Pereira, Nelson Oliveira, Pavel Racu and Luis Salvado on 07/07/2016.
  */
 public class WorldContactListener implements ContactListener {
 

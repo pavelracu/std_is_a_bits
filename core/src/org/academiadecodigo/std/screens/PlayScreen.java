@@ -74,10 +74,10 @@ public class PlayScreen implements Screen {
 
         creator = new B2WorldCreator(this);
 
-        player1 = new Player(this, 40, 460, new Texture("blueball.png"), STDIsABits.VIRUS1_BIT);
+        player1 = new Player(this, 40, 460, new Texture("virus.png"), STDIsABits.VIRUS1_BIT);
 
 
-        player2 = new Player(this, STDIsABits.WIDTH - 40, STDIsABits.HEIGHT - 460, new Texture("redball.png"), STDIsABits.VIRUS2_BIT);
+        player2 = new Player(this, STDIsABits.WIDTH - 40, STDIsABits.HEIGHT - 460, new Texture("virus02.png"), STDIsABits.VIRUS2_BIT);
 
 
         world.setContactListener(new WorldContactListener());
