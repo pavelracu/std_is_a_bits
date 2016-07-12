@@ -31,9 +31,11 @@ public class Hud implements Disposable {
     private float timeCount;
     private boolean timeUp;
 
+    private Label winnerScore;
+
     public Hud(SpriteBatch sb) {
 
-        worldTimer = 180;
+        worldTimer = 5;
         timeCount = 0;
         scorePlayer1 = 0;
         scorePlayer2 = 0;
@@ -66,6 +68,11 @@ public class Hud implements Disposable {
         table.add(countdownLabel).expandX();
         table.add(scoreLabel2).expandX();
 
+        winnerScore = new Label("", new Label.LabelStyle(new BitmapFont(), Color.GRAY));
+        winnerScore.setFontScale(3f);
+        table.row();
+        table.add(winnerScore).colspan(3).expandX().padTop(100);
+
         stage.addActor(table);
     }
 
@@ -84,21 +91,30 @@ public class Hud implements Disposable {
         }
     }
 
-    public static void removeScore(int value, int player) {
-        switch (player) {
-            case 1:
-                scorePlayer1 -= value;
-                scoreLabel1.setText(String.format("%04d", scorePlayer1));
-                break;
-            case 2:
-                scorePlayer2 -= value;
-                scoreLabel2.setText(String.format("%04d", scorePlayer2));
-                break;
-            default:
-                break;
-        }
+    public static Integer getScorePlayer1() {
+        return scorePlayer1;
     }
 
+    public static Integer getScorePlayer2() {
+        return scorePlayer2;
+    }
+
+    public void gameOver() {
+
+        String winner;
+        int score;
+        if (getScorePlayer1() > getScorePlayer2()) {
+            winner = new String("PLAYER 1");
+            score = getScorePlayer1();
+            winnerScore.setColor(Color.RED);
+        } else {
+            winner = new String("PLAYER 2");
+            score = getScorePlayer2();
+            winnerScore.setColor(Color.GREEN);
+        }
+
+        winnerScore.setText(winner + " wins, " + score + " cells were infected!");
+    }
 
     public void update(float dt) {
 
@@ -131,13 +147,5 @@ public class Hud implements Disposable {
         scoreLabel1.setText(String.format("%04d", scorePlayer1));
         scorePlayer2 = 0;
         scoreLabel2.setText(String.format("%04d", scorePlayer2));
-    }
-
-    public static Integer getScorePlayer1() {
-        return scorePlayer1;
-    }
-
-    public static Integer getScorePlayer2() {
-        return scorePlayer2;
     }
 }
