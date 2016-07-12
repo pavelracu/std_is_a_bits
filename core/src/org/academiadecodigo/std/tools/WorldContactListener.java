@@ -1,5 +1,6 @@
 package org.academiadecodigo.std.tools;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.*;
@@ -29,27 +30,34 @@ public class WorldContactListener implements ContactListener {
         switch (cDef) {
             case Tumor.BALL_BIT | Tumor.VIRUS1_BIT:
                 if (fixA.getFilterData().categoryBits == Tumor.BALL_BIT) {
-                    ((Cell) fixA.getUserData()).setState(((Player) fixB.getUserData()).getPlayerNum());
-                    ((Cell) fixA.getUserData()).setTexture(((Player) fixB.getUserData()).getInfectedTexture());
+                    if (((Cell) fixA.getUserData()).getState() != ((Player) fixB.getUserData()).getPlayerNum()) {
+                        ((Cell) fixA.getUserData()).setState(((Player) fixB.getUserData()).getPlayerNum());
+                        ((Cell) fixA.getUserData()).setTexture(((Player) fixB.getUserData()).getInfectedTexture());
+
+                        manager.get("infection.wav", Sound.class).play();
+                        Gdx.input.vibrate(40);
+                    }
 
                 } else {
-                    ((Cell) fixB.getUserData()).setState(((Player) fixA.getUserData()).getPlayerNum());
-                    ((Cell) fixB.getUserData()).setTexture(((Player) fixA.getUserData()).getInfectedTexture());
+                    if (((Cell) fixB.getUserData()).getState() != ((Player) fixA.getUserData()).getPlayerNum()) {
+                        ((Cell) fixB.getUserData()).setState(((Player) fixA.getUserData()).getPlayerNum());
+                        ((Cell) fixB.getUserData()).setTexture(((Player) fixA.getUserData()).getInfectedTexture());
 
+                        manager.get("infection.wav", Sound.class).play();
+                        Gdx.input.vibrate(40);
+                    }
 
                 }
-                manager.get("infection.wav", Sound.class).play();
+
                 break;
 
             case Tumor.BALL_BIT | Tumor.VIRUS2_BIT:
                 if (fixA.getFilterData().categoryBits == Tumor.BALL_BIT) {
                     ((Cell) fixA.getUserData()).setState(((Player) fixB.getUserData()).getPlayerNum());
                     ((Cell) fixA.getUserData()).setTexture(((Player) fixB.getUserData()).getInfectedTexture());
-                    System.out.println("p2");
                 } else {
                     ((Cell) fixB.getUserData()).setState(((Player) fixA.getUserData()).getPlayerNum());
                     ((Cell) fixB.getUserData()).setTexture(((Player) fixA.getUserData()).getInfectedTexture());
-                    System.out.println("p2");
 
                 }
                 manager.get("infection.wav", Sound.class).play();

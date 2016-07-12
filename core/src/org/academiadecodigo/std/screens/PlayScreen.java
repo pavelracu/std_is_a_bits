@@ -1,6 +1,5 @@
 package org.academiadecodigo.std.screens;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -18,7 +17,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import org.academiadecodigo.std.Tumor;
-import org.academiadecodigo.std.controller.Controller;
+import org.academiadecodigo.std.controller.TouchController;
 import org.academiadecodigo.std.scenes.Hud;
 import org.academiadecodigo.std.sprites.Cell;
 import org.academiadecodigo.std.sprites.Player;
@@ -37,7 +36,7 @@ public class PlayScreen implements Screen {
     private Viewport gamePort;
 
     private Hud hud;
-    private Controller controller;
+    private TouchController touchController;
 
     private TmxMapLoader mapLoader;
     private TiledMap map;
@@ -49,7 +48,6 @@ public class PlayScreen implements Screen {
     private Player player1;
     private Player player2;
 
-    private Cell cell;
 
     private float gameOverTimer;
 
@@ -84,13 +82,13 @@ public class PlayScreen implements Screen {
 
         world.setContactListener(new WorldContactListener(manager));
 
-        controller = new Controller(game);
+        touchController = new TouchController(player1);
 
         gameOverTimer = 0;
 
     }
 
-    public void handleInput(float dt) {
+    public void handleInput() {
 
         handlePlayer1Input();
         handlePlayer2Input();
@@ -98,16 +96,18 @@ public class PlayScreen implements Screen {
     }
 
     private void handlePlayer1Input() {
-        if (controller.isUpPressed()) {
+
+
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             player1.getB2Body().applyForceToCenter(new Vector2(0, Player.PLAYER_SPEED), true);
         }
-        if (controller.isDownPressed()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             player1.getB2Body().applyForceToCenter(new Vector2(0, -Player.PLAYER_SPEED), true);
         }
-        if (controller.isLeftPressed()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             player1.getB2Body().applyForceToCenter(new Vector2(-Player.PLAYER_SPEED, 0), true);
         }
-        if (controller.isRightPressed()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             player1.getB2Body().applyForceToCenter(new Vector2(Player.PLAYER_SPEED, 0), true);
         }
     }
@@ -127,24 +127,21 @@ public class PlayScreen implements Screen {
         }
     }
 
-    private void setToSteady(Player player) {
-        player.getB2Body().setLinearVelocity(0, 0);
-    }
-
     public void update(float dt) {
 
         if (hud.isTimeUp() || isGameOver()) {
 
             hud.gameOver();
 
-            if (gameOverTimer > 5) {
+            if (gameOverTimer > 6) {
+                Gdx.input.vibrate(60);
                 gameOver();
             } else {
                 gameOverTimer += dt;
             }
         } else {
 
-            handleInput(dt);
+            handleInput();
 
             world.step(1 / 60f, 6, 2);
 
@@ -211,8 +208,6 @@ public class PlayScreen implements Screen {
 
         renderer.render();
 
-        //b2dr.render(world, gameCam.combined);
-
         game.sb.setProjectionMatrix(gameCam.combined);
         game.sb.begin();
         player1.draw(game.sb);
@@ -224,9 +219,9 @@ public class PlayScreen implements Screen {
 
         game.sb.end();
 
-        if(Gdx.app.getType() == Application.ApplicationType.Android) {
+        /*if(Gdx.app.getType() == Application.ApplicationType.Android) {
             controller.draw();
-        }
+        }*/
 
         game.sb.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
@@ -237,7 +232,7 @@ public class PlayScreen implements Screen {
     public void resize(int width, int height) {
 
         gamePort.update(width, height);
-        controller.resize(width, height);
+
     }
 
     @Override

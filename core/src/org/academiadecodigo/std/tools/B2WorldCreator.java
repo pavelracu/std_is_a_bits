@@ -38,7 +38,7 @@ public class B2WorldCreator {
 
             shape.setAsBox(rect.getWidth() / 2 / Tumor.PPM, rect.getHeight() / 2 / Tumor.PPM);
             fdef.shape = shape;
-            fdef.restitution = 1.1f;
+            fdef.restitution = 1.05f;
             fdef.filter.categoryBits = Tumor.EDGE_BIT;
             body.createFixture(fdef);
         }

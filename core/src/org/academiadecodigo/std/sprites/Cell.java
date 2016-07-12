@@ -54,7 +54,7 @@ public class Cell extends Sprite {
 
         fdef.shape = shape;
         fdef.restitution = 1f;
-        fdef.friction = 0.9f;
+        fdef.friction = 1f;
 
 
         fixture = b2Body.createFixture(fdef);

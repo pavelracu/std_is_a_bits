@@ -56,7 +56,7 @@ public class Player extends Sprite {
         fixtureDef.filter.maskBits = Tumor.BALL_BIT | Tumor.VIRUS1_BIT | Tumor.VIRUS2_BIT | Tumor.EDGE_BIT;
 
         fixtureDef.shape = shape;
-        fixtureDef.restitution = 1.4f;
+        fixtureDef.restitution = 1f;
         fixtureDef.friction = 10f;
 
         fixture = b2Body.createFixture(fixtureDef);
