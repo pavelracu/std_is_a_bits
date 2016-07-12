@@ -174,7 +174,6 @@ public class PlayScreen implements Screen {
             hud.update(dt);
 
             renderer.setView(gameCam);
-
         }
     }
 
@@ -225,7 +224,7 @@ public class PlayScreen implements Screen {
 
         game.sb.end();
 
-        if (Gdx.app.getType() == Application.ApplicationType.Android) {
+        if(Gdx.app.getType() == Application.ApplicationType.Android) {
             controller.draw();
         }
 

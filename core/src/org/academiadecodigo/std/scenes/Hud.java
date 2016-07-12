@@ -35,7 +35,7 @@ public class Hud implements Disposable {
 
     public Hud(SpriteBatch sb) {
 
-        worldTimer = 5;
+        worldTimer = 180;
         timeCount = 0;
         scorePlayer1 = 0;
         scorePlayer2 = 0;
@@ -91,23 +91,15 @@ public class Hud implements Disposable {
         }
     }
 
-    public static Integer getScorePlayer1() {
-        return scorePlayer1;
-    }
-
-    public static Integer getScorePlayer2() {
-        return scorePlayer2;
-    }
-
     public void gameOver() {
 
         String winner;
         int score;
-        if (getScorePlayer1() > getScorePlayer2()) {
+        if(getScorePlayer1() > getScorePlayer2()){
             winner = new String("PLAYER 1");
             score = getScorePlayer1();
             winnerScore.setColor(Color.RED);
-        } else {
+        }else {
             winner = new String("PLAYER 2");
             score = getScorePlayer2();
             winnerScore.setColor(Color.GREEN);
@@ -115,6 +107,7 @@ public class Hud implements Disposable {
 
         winnerScore.setText(winner + " wins, " + score + " cells were infected!");
     }
+
 
     public void update(float dt) {
 
@@ -147,5 +140,13 @@ public class Hud implements Disposable {
         scoreLabel1.setText(String.format("%04d", scorePlayer1));
         scorePlayer2 = 0;
         scoreLabel2.setText(String.format("%04d", scorePlayer2));
+    }
+
+    public static Integer getScorePlayer1() {
+        return scorePlayer1;
+    }
+
+    public static Integer getScorePlayer2() {
+        return scorePlayer2;
     }
 }
