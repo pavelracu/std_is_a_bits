@@ -1,62 +1,65 @@
-package org.academiadecodigo.std.screens;
+package org.academiadecodigo.tumor.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import org.academiadecodigo.std.Tumor;
+import org.academiadecodigo.tumor.Tumor;
 
 /**
- * Created by Helia Marcos, David Neves, Nuno Pereira, Nelson Oliveira, Pavel Racu and Luis Salvado on 07-07-2016.
+ * Created by Helia Marcos, David Neves, Nuno Pereira, Nelson Oliveira, Pavel Racu and Luis Salvado on 07/07/2016.
  */
-public class GameOverScreen implements Screen {
+public class MenuScreen implements Screen {
 
     private Tumor game;
     private OrthographicCamera cam;
     private Viewport viewport;
 
     private AssetManager manager;
+    private Music music;
 
     private Texture texture;
 
 
-    public GameOverScreen(Tumor game, AssetManager manager) {
+    public MenuScreen(Tumor game, AssetManager manager) {
         this.game = game;
         this.manager = manager;
-
 
         cam = new OrthographicCamera();
         viewport = new FitViewport(Tumor.WIDTH, Tumor.HEIGHT, cam);
 
+        cam.position.set(viewport.getWorldWidth() / 2, viewport.getScreenHeight() / 2, 0);
 
-        cam.position.set(viewport.getWorldWidth() / 2, viewport.getScreenHeight(), 0);
+        music = manager.get("Skies.mp3", Music.class);
+        music.setLooping(true);
+        music.play();
 
-        texture = new Texture("gameover.png");
+        texture = new Texture("start.jpg");
+    }
+
+
+    public void update(float dt) {
+
+        handleInput(dt);
     }
 
     public void handleInput(float dt) {
 
         if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 
-            game.setScreen(new MenuScreen(game, manager));
+            game.setScreen(new PlayScreen(game, manager));
             dispose();
-
         }
-
-    }
-
-    public void update(float dt) {
-        handleInput(dt);
     }
 
     @Override
     public void show() {
-
 
     }
 
@@ -73,14 +76,13 @@ public class GameOverScreen implements Screen {
 
         game.sb.end();
 
-
     }
+
 
     @Override
     public void resize(int width, int height) {
 
         viewport.update(width, height);
-
     }
 
     @Override
@@ -100,6 +102,6 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void dispose() {
-        texture.dispose();
+        //texture.dispose();
     }
 }

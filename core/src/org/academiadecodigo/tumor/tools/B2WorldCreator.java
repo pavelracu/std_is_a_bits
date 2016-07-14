@@ -1,4 +1,4 @@
-package org.academiadecodigo.std.tools;
+package org.academiadecodigo.tumor.tools;
 
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -7,9 +7,9 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
-import org.academiadecodigo.std.Tumor;
-import org.academiadecodigo.std.screens.PlayScreen;
-import org.academiadecodigo.std.sprites.Cell;
+import org.academiadecodigo.tumor.Tumor;
+import org.academiadecodigo.tumor.screens.PlayScreen;
+import org.academiadecodigo.tumor.sprites.Cell;
 
 /**
  * Created by Helia Marcos, David Neves, Nuno Pereira, Nelson Oliveira, Pavel Racu and Luis Salvado on 07/07/2016.

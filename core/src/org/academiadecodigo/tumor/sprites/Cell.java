@@ -1,10 +1,10 @@
-package org.academiadecodigo.std.sprites;
+package org.academiadecodigo.tumor.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.*;
-import org.academiadecodigo.std.Tumor;
-import org.academiadecodigo.std.screens.PlayScreen;
+import org.academiadecodigo.tumor.Tumor;
+import org.academiadecodigo.tumor.screens.PlayScreen;
 
 /**
  * Created by Helia Marcos, David Neves, Nuno Pereira, Nelson Oliveira, Pavel Racu and Luis Salvado on 07/07/2016.

@@ -1,4 +1,4 @@
-package org.academiadecodigo.std;
+package org.academiadecodigo.tumor;
 
 import android.os.Bundle;
 

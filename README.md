@@ -15,7 +15,7 @@ This is a multiplayer game.
 
  - Game theme - infect the maximum number of cells with your virus.
  - Cells infected will infect other cells.
- - Each player is a virus.
+ - Each player1 is a virus.
  - Player moves with arrow keys. 
  
  Please enjoy. 

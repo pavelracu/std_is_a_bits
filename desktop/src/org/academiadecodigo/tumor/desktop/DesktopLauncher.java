@@ -1,8 +1,8 @@
-package org.academiadecodigo.std.desktop;
+package org.academiadecodigo.tumor.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import org.academiadecodigo.std.Tumor;
+import org.academiadecodigo.tumor.Tumor;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {

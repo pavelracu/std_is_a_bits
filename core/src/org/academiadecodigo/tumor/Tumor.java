@@ -1,18 +1,16 @@
-package org.academiadecodigo.std;
+package org.academiadecodigo.tumor;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import org.academiadecodigo.std.screens.MenuScreen;
+import org.academiadecodigo.tumor.screens.MenuScreen;
 
 public class Tumor extends Game {
 
 	public static final int WIDTH = 1600;
-	public static final int HEIGHT = 960;
+	public static final int HEIGHT = 960; // 900
 	public static final float PPM = 100;
 
 	public static final short EDGE_BIT = 1;

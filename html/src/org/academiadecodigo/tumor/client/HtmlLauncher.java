@@ -1,9 +1,9 @@
-package org.academiadecodigo.std.client;
+package org.academiadecodigo.tumor.client;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import org.academiadecodigo.std.Tumor;
+import org.academiadecodigo.tumor.Tumor;
 
 public class HtmlLauncher extends GwtApplication {
 

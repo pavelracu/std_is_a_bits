@@ -7,8 +7,8 @@ gwt {
     minHeapSize="1G"
 
     src = files(file("src/")) // Needs to be in front of "modules" below.
-    modules 'org.academiadecodigo.std.GdxDefinition'
-    devModules 'org.academiadecodigo.std.GdxDefinitionSuperdev'
+    modules 'org.academiadecodigo.tumor.GdxDefinition'
+    devModules 'org.academiadecodigo.tumor.GdxDefinitionSuperdev'
     project.webAppDirName = 'webapp'
 
     compiler {

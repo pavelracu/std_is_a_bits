@@ -1,12 +1,12 @@
-package org.academiadecodigo.std.tools;
+package org.academiadecodigo.tumor.tools;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.*;
-import org.academiadecodigo.std.Tumor;
-import org.academiadecodigo.std.sprites.Cell;
-import org.academiadecodigo.std.sprites.Player;
+import org.academiadecodigo.tumor.Tumor;
+import org.academiadecodigo.tumor.sprites.Cell;
+import org.academiadecodigo.tumor.sprites.Player;
 
 /**
  * Created by Helia Marcos, David Neves, Nuno Pereira, Nelson Oliveira, Pavel Racu and Luis Salvado on 07/07/2016.
@@ -29,13 +29,14 @@ public class WorldContactListener implements ContactListener {
 
         switch (cDef) {
             case Tumor.BALL_BIT | Tumor.VIRUS1_BIT:
+            case Tumor.BALL_BIT | Tumor.VIRUS2_BIT:
                 if (fixA.getFilterData().categoryBits == Tumor.BALL_BIT) {
                     if (((Cell) fixA.getUserData()).getState() != ((Player) fixB.getUserData()).getPlayerNum()) {
                         ((Cell) fixA.getUserData()).setState(((Player) fixB.getUserData()).getPlayerNum());
                         ((Cell) fixA.getUserData()).setTexture(((Player) fixB.getUserData()).getInfectedTexture());
 
                         manager.get("infection.wav", Sound.class).play();
-                        Gdx.input.vibrate(40);
+                        Gdx.input.vibrate(20);
                     }
 
                 } else {
@@ -44,23 +45,10 @@ public class WorldContactListener implements ContactListener {
                         ((Cell) fixB.getUserData()).setTexture(((Player) fixA.getUserData()).getInfectedTexture());
 
                         manager.get("infection.wav", Sound.class).play();
-                        Gdx.input.vibrate(40);
+                        Gdx.input.vibrate(20);
                     }
 
                 }
-
-                break;
-
-            case Tumor.BALL_BIT | Tumor.VIRUS2_BIT:
-                if (fixA.getFilterData().categoryBits == Tumor.BALL_BIT) {
-                    ((Cell) fixA.getUserData()).setState(((Player) fixB.getUserData()).getPlayerNum());
-                    ((Cell) fixA.getUserData()).setTexture(((Player) fixB.getUserData()).getInfectedTexture());
-                } else {
-                    ((Cell) fixB.getUserData()).setState(((Player) fixA.getUserData()).getPlayerNum());
-                    ((Cell) fixB.getUserData()).setTexture(((Player) fixA.getUserData()).getInfectedTexture());
-
-                }
-                manager.get("infection.wav", Sound.class).play();
                 break;
 
             case Tumor.BALL_BIT | Tumor.BALL_BIT:

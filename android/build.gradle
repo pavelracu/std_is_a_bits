@@ -15,7 +15,7 @@ android {
         instrumentTest.setRoot('tests')
     }
     defaultConfig {
-        applicationId "org.academiadecodigo.std"
+        applicationId "org.academiadecodigo.tumor"
         minSdkVersion 8
         targetSdkVersion 24
     }
@@ -68,7 +68,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'org.academiadecodigo.std/org.academiadecodigo.std.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'org.academiadecodigo.tumor/org.academiadecodigo.tumor.AndroidLauncher'
 }
 
 // sets up the Android Eclipse project, using the old Ant based build.

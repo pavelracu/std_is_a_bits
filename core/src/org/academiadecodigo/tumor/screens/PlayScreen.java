@@ -1,4 +1,4 @@
-package org.academiadecodigo.std.screens;
+package org.academiadecodigo.tumor.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -16,13 +16,13 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import org.academiadecodigo.std.Tumor;
-import org.academiadecodigo.std.controller.TouchController;
-import org.academiadecodigo.std.scenes.Hud;
-import org.academiadecodigo.std.sprites.Cell;
-import org.academiadecodigo.std.sprites.Player;
-import org.academiadecodigo.std.tools.B2WorldCreator;
-import org.academiadecodigo.std.tools.WorldContactListener;
+import org.academiadecodigo.tumor.Tumor;
+import org.academiadecodigo.tumor.controller.Controller;
+import org.academiadecodigo.tumor.scenes.Hud;
+import org.academiadecodigo.tumor.sprites.Cell;
+import org.academiadecodigo.tumor.sprites.Player;
+import org.academiadecodigo.tumor.tools.B2WorldCreator;
+import org.academiadecodigo.tumor.tools.WorldContactListener;
 
 /**
  * Created by Helia Marcos, David Neves, Nuno Pereira, Nelson Oliveira, Pavel Racu and Luis Salvado on 07/07/2016.
@@ -36,7 +36,7 @@ public class PlayScreen implements Screen {
     private Viewport gamePort;
 
     private Hud hud;
-    private TouchController touchController;
+    private Controller controller;
 
     private TmxMapLoader mapLoader;
     private TiledMap map;
@@ -82,13 +82,23 @@ public class PlayScreen implements Screen {
 
         world.setContactListener(new WorldContactListener(manager));
 
-        touchController = new TouchController(player1);
+        controller = new Controller(player1, player2);
+
 
         gameOverTimer = 0;
 
     }
 
     public void handleInput() {
+
+
+        /*if (Gdx.input.getX() - Gdx.input.getDeltaX() < Gdx.graphics.getWidth() / 2) {
+            player1.getB2Body().applyForceToCenter(new Vector2(Gdx.input.getDeltaX() / Tumor.PPM * 4, -Gdx.input.getDeltaY() / Tumor.PPM * 4), true);
+            System.out.println("a1");
+        } else {
+            player2.getB2Body().applyForceToCenter(new Vector2(Gdx.input.getDeltaX() / Tumor.PPM * 4, -Gdx.input.getDeltaY() / Tumor.PPM * 4), true);
+            System.out.println("b1");
+        }*/
 
         handlePlayer1Input();
         handlePlayer2Input();
@@ -219,9 +229,6 @@ public class PlayScreen implements Screen {
 
         game.sb.end();
 
-        /*if(Gdx.app.getType() == Application.ApplicationType.Android) {
-            controller.draw();
-        }*/
 
         game.sb.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
